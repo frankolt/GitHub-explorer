@@ -69,4 +69,7 @@ dependencies {
     // Hilt-Jetpack
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
 }
