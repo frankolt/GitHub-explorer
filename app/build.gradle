@@ -19,7 +19,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "GIT_HUB_API_BASE_URL", "\"https://api.github.com/\""
+        buildConfigField "String", "GIT_HUB_API_BASE_URL", "\"https://api.github.com\""
     }
 
     buildTypes {
