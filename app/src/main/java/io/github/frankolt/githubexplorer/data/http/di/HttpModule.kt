@@ -19,7 +19,9 @@ object HttpModule {
     fun provideOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
-            builder.addInterceptor(HttpLoggingInterceptor())
+            builder.addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
         }
         return builder.build()
     }
