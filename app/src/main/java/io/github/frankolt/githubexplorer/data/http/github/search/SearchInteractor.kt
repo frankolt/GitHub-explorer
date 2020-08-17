@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.data.http.github.search
 
-import io.github.frankolt.githubexplorer.data.github.SearchResult
+import io.github.frankolt.githubexplorer.data.http.github.models.SearchResult
 import io.github.frankolt.githubexplorer.data.http.github.GitHubService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
