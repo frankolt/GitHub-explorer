@@ -2,6 +2,7 @@ package io.github.frankolt.githubexplorer.data.github
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import io.github.frankolt.githubexplorer.data.http.github.models.Owner
 
 @JsonClass(generateAdapter = true)
 data class SearchResultItem(
