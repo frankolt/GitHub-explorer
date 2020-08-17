@@ -1,8 +1,7 @@
-package io.github.frankolt.githubexplorer.data.http.github.models
+package io.github.frankolt.githubexplorer.data.sources.http.github.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultItem
 
 @JsonClass(generateAdapter = true)
 data class SearchResult(

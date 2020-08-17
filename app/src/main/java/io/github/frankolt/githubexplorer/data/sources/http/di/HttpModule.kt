@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.http.di
+package io.github.frankolt.githubexplorer.data.sources.http.di
 
 import com.squareup.moshi.Moshi
 import dagger.Module

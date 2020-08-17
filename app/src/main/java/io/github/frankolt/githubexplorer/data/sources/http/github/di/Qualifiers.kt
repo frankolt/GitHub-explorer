@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.http.github.di
+package io.github.frankolt.githubexplorer.data.sources.http.github.di
 
 import javax.inject.Qualifier
 

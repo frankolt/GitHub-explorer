@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultItem
-import io.github.frankolt.githubexplorer.data.http.github.search.SearchInteractor
+import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultItem
+import io.github.frankolt.githubexplorer.data.sources.http.github.search.SearchInteractor
 import kotlinx.coroutines.launch
 
 class SearchViewModel @ViewModelInject constructor(

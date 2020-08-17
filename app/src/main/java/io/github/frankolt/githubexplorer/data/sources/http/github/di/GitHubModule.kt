@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.http.github.di
+package io.github.frankolt.githubexplorer.data.sources.http.github.di
 
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -6,8 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.frankolt.githubexplorer.BuildConfig
-import io.github.frankolt.githubexplorer.data.http.github.GitHubRequestInterceptor
-import io.github.frankolt.githubexplorer.data.http.github.GitHubService
+import io.github.frankolt.githubexplorer.data.sources.http.github.GitHubRequestInterceptor
+import io.github.frankolt.githubexplorer.data.sources.http.github.GitHubService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
