@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.github.frankolt.githubexplorer.data.github.SearchResultItem
+import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultItem
 import io.github.frankolt.githubexplorer.databinding.ViewSearchResultItemBinding
 
 class SearchAdapter(
