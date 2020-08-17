@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.sources.http.github.search
+package io.github.frankolt.githubexplorer.data.sources.http.github.interactors
 
 import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResult
 import io.github.frankolt.githubexplorer.data.sources.http.github.GitHubService
