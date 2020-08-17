@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentSearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.update
@@ -26,6 +27,13 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by viewModels()
 
+    private val searchAdapter = SearchAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.searchTimber()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,10 +51,13 @@ class SearchFragment : Fragment() {
 
     private fun observe() {
         viewModel.query.observe(viewLifecycleOwner) { binding.queryInputField.update(it) }
+        viewModel.searchResultItems.observe(viewLifecycleOwner) { searchAdapter.data = it }
     }
 
     private fun setupUi() {
         binding.queryInputField.addTextChangedListener { viewModel.search(it.toString()) }
+        binding.queryResultList.layoutManager = LinearLayoutManager(context)
+        binding.queryResultList.adapter = searchAdapter
     }
 
     override fun onDestroyView() {
