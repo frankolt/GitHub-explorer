@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.sources.http.github.models
+package io.github.frankolt.githubexplorer.data.http.github.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

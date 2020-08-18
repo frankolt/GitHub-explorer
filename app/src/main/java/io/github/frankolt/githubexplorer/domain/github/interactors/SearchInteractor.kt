@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.domain.github.interactors
 
-import io.github.frankolt.githubexplorer.data.sources.http.github.GitHubService
+import io.github.frankolt.githubexplorer.data.http.github.GitHubService
 import io.github.frankolt.githubexplorer.domain.github.mappers.SearchResultMapper
 import io.github.frankolt.githubexplorer.domain.github.models.SearchResult
 import kotlinx.coroutines.Dispatchers

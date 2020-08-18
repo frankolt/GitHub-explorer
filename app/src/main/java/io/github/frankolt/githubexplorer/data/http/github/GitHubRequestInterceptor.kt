@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.data.sources.http.github
+package io.github.frankolt.githubexplorer.data.http.github
 
 import okhttp3.Interceptor
 import javax.inject.Inject

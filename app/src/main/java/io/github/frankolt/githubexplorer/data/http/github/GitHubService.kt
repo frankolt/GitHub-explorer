@@ -1,6 +1,6 @@
-package io.github.frankolt.githubexplorer.data.sources.http.github
+package io.github.frankolt.githubexplorer.data.http.github
 
-import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultResponse
+import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

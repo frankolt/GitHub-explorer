@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.domain.github.mappers
 
-import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultResponse
+import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultResponse
 import io.github.frankolt.githubexplorer.domain.github.models.SearchResult
 
 object SearchResultMapper {
