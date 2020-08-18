@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.frankolt.githubexplorer.data.sources.http.github.interactors.SearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.SearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.SearchResultItem
 import kotlinx.coroutines.launch
 
