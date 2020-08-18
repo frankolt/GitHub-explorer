@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultItemResponse
 import io.github.frankolt.githubexplorer.data.sources.http.github.interactors.SearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.models.SearchResultItem
 import kotlinx.coroutines.launch
 
 class SearchViewModel @ViewModelInject constructor(
@@ -18,9 +18,9 @@ class SearchViewModel @ViewModelInject constructor(
     val query: LiveData<String>
         get() = _query
 
-    private var _searchResultItems = MutableLiveData<List<SearchResultItemResponse>>()
+    private var _searchResultItems = MutableLiveData<List<SearchResultItem>>()
 
-    val searchResultItems: LiveData<List<SearchResultItemResponse>>
+    val searchResultItems: LiveData<List<SearchResultItem>>
         get() = _searchResultItems
 
     fun search(query: String) = viewModelScope.launch {
