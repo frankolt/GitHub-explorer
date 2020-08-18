@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.data.sources.http.github
 
-import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResult
+import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,5 +13,5 @@ interface GitHubService {
         @Query("order") order: String? = null,
         @Query("per_page") perPage: Int? = null,
         @Query("page") page: Int? = null
-    ): SearchResult
+    ): SearchResultResponse
 }

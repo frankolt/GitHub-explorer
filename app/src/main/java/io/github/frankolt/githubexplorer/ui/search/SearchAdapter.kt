@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultItem
+import io.github.frankolt.githubexplorer.data.sources.http.github.models.SearchResultItemResponse
 import io.github.frankolt.githubexplorer.databinding.ViewSearchResultItemBinding
 
 class SearchAdapter(
-    initialData: List<SearchResultItem> = listOf()
+    initialData: List<SearchResultItemResponse> = listOf()
 ) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
-    var data: List<SearchResultItem> = initialData
+    var data: List<SearchResultItemResponse> = initialData
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,7 +34,7 @@ class SearchAdapter(
         private val binding: ViewSearchResultItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SearchResultItem) {
+        fun bind(item: SearchResultItemResponse) {
             // TODO: Handle cases where some fields are `null`.
             item.owner?.avatarUrl?.let {
                 Glide.with(context).load(it).centerCrop().into(binding.repositoryOwnerThumbnail)

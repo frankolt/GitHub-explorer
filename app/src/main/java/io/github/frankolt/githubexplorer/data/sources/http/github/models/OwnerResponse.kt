@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Owner(
+data class OwnerResponse(
     @Json(name = "login") val login: String? = null,
     @Json(name = "id") val id: Int? = null,
     @Json(name = "node_id") val nodeId: String? = null,
