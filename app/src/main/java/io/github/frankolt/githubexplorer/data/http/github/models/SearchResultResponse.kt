@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class SearchResultResponse(
-    @Json(name = "total_count") val totalCount: Int? = null,
+    @Json(name = "total_count") val totalCount: Long? = null,
     @Json(name = "incomplete_results") val areResultsIncomplete: Boolean? = null,
     @Json(name = "items") val items: List<SearchResultItemResponse>? = null
 )

@@ -1,7 +1,7 @@
 package io.github.frankolt.githubexplorer.domain.github.models
 
 data class SearchResultItem(
-    val id: Int? = null,
+    val id: Long? = null,
     val nodeId: String? = null,
     val name: String? = null,
     val fullName: String? = null,
@@ -15,13 +15,13 @@ data class SearchResultItem(
     val updatedAt: String? = null,
     val pushedAt: String? = null,
     val homepage: String? = null,
-    val size: Int? = null,
-    val stargazersCount: Int? = null,
-    val watchersCount: Int? = null,
+    val size: Long? = null,
+    val stargazersCount: Long? = null,
+    val watchersCount: Long? = null,
     val language: String? = null,
-    val forksCount: Int? = null,
-    val openIssuesCount: Int? = null,
+    val forksCount: Long? = null,
+    val openIssuesCount: Long? = null,
     val masterBranch: String? = null,
     val defaultBranch: String? = null,
-    val score: Int? = null
+    val score: Long? = null
 )
