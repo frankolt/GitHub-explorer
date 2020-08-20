@@ -1,7 +1,9 @@
 package io.github.frankolt.githubexplorer.data.http.github
 
+import io.github.frankolt.githubexplorer.data.http.github.models.PublicUserResponse
 import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GitHubService {
@@ -14,4 +16,9 @@ interface GitHubService {
         @Query("per_page") perPage: Int? = null,
         @Query("page") page: Int? = null
     ): SearchResultResponse
+
+    @GET("/users/{username}")
+    suspend fun getPublicUser(
+        @Path("username") username: String
+    ): PublicUserResponse
 }
