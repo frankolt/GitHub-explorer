@@ -49,6 +49,11 @@ class SearchFragment : Fragment() {
         setupUi()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun observe() {
         viewModel.query.observe(viewLifecycleOwner) { binding.queryInputField.update(it) }
         viewModel.searchResultItems.observe(viewLifecycleOwner) { searchAdapter.data = it }
@@ -58,10 +63,5 @@ class SearchFragment : Fragment() {
         binding.queryInputField.addTextChangedListener { viewModel.search(it.toString()) }
         binding.queryResultList.layoutManager = LinearLayoutManager(context)
         binding.queryResultList.adapter = searchAdapter
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
