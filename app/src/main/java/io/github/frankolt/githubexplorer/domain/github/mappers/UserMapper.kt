@@ -1,11 +1,11 @@
 package io.github.frankolt.githubexplorer.domain.github.mappers
 
-import io.github.frankolt.githubexplorer.data.http.github.models.PublicUserResponse
-import io.github.frankolt.githubexplorer.domain.github.models.PublicUser
+import io.github.frankolt.githubexplorer.data.http.github.models.UserResponse
+import io.github.frankolt.githubexplorer.domain.github.models.User
 
-object PublicUserMapper {
+object UserMapper {
     
-    fun fromResponse(response: PublicUserResponse) = PublicUser(
+    fun fromResponse(response: UserResponse) = User(
         response.login,
         response.id,
         response.nodeId,

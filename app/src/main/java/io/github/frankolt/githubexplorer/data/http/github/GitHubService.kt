@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.data.http.github
 
-import io.github.frankolt.githubexplorer.data.http.github.models.PublicUserResponse
+import io.github.frankolt.githubexplorer.data.http.github.models.UserResponse
 import io.github.frankolt.githubexplorer.data.http.github.models.RepositorySearchResultResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,5 +20,5 @@ interface GitHubService {
     @GET("/users/{username}")
     suspend fun getPublicUser(
         @Path("username") username: String
-    ): PublicUserResponse
+    ): UserResponse
 }
