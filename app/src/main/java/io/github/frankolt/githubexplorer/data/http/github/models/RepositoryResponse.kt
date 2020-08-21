@@ -9,7 +9,7 @@ data class RepositoryResponse(
     @Json(name = "node_id") val nodeId: String? = null,
     @Json(name = "name") val name: String? = null,
     @Json(name = "full_name") val fullName: String? = null,
-    @Json(name = "owner") val owner: OwnerResponse? = null,
+    @Json(name = "owner") val owner: UserResponse? = null,
     @Json(name = "private") val isPrivate: Boolean? = null,
     @Json(name = "html_url") val htmlUrl: String? = null,
     @Json(name = "description") val description: String? = null,

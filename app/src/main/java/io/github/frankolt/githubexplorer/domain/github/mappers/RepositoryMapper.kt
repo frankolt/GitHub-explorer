@@ -10,7 +10,7 @@ object RepositoryMapper {
         response.nodeId,
         response.name,
         response.fullName,
-        response.owner?.let { OwnerMapper.fromResponse(it) },
+        response.owner?.let { UserMapper.fromResponse(it) },
         response.isPrivate,
         response.htmlUrl,
         response.description,

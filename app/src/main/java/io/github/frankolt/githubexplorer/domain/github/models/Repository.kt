@@ -5,7 +5,7 @@ data class Repository(
     val nodeId: String? = null,
     val name: String? = null,
     val fullName: String? = null,
-    val owner: Owner? = null,
+    val owner: User? = null,
     val isPrivate: Boolean? = null,
     val htmlUrl: String? = null,
     val description: String? = null,
