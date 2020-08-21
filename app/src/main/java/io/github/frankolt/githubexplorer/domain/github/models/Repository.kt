@@ -1,6 +1,6 @@
 package io.github.frankolt.githubexplorer.domain.github.models
 
-data class SearchResultItem(
+data class Repository(
     val id: Long? = null,
     val nodeId: String? = null,
     val name: String? = null,

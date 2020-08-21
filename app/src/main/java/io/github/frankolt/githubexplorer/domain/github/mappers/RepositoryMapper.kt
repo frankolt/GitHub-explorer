@@ -1,11 +1,11 @@
 package io.github.frankolt.githubexplorer.domain.github.mappers
 
-import io.github.frankolt.githubexplorer.data.http.github.models.SearchResultItemResponse
-import io.github.frankolt.githubexplorer.domain.github.models.SearchResultItem
+import io.github.frankolt.githubexplorer.data.http.github.models.RepositoryResponse
+import io.github.frankolt.githubexplorer.domain.github.models.Repository
 
-object SearchResultItemMapper {
+object RepositoryMapper {
 
-    fun fromResponse(response: SearchResultItemResponse) = SearchResultItem(
+    fun fromResponse(response: RepositoryResponse) = Repository(
         response.id,
         response.nodeId,
         response.name,
