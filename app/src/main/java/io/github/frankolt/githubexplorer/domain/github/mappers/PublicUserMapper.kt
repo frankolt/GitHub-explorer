@@ -29,6 +29,15 @@ object PublicUserMapper {
         response.blog,
         response.location,
         response.email,
-        response.hireable
+        response.hireable,
+        response.bio,
+        response.twitterUsername,
+        response.publicRepos,
+        response.publicGists,
+        response.followers,
+        response.following,
+        response.createdAt,
+        response.updatedAt,
+        response.plan?.let { UserPlanMapper.fromResponse(it) }
     )
 }

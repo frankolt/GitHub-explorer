@@ -24,5 +24,14 @@ data class PublicUser(
     val blog: String? = null,
     val location: String? = null,
     val email: String? = null,
-    val hireable: Boolean? = null
+    val hireable: Boolean? = null,
+    val bio: String? = null,
+    val twitterUsername: String? = null,
+    val publicRepos: Long? = null,
+    val publicGists: Long? = null,
+    val followers: Long? = null,
+    val following: Long? = null,
+    val createdAt: String? = null,
+    val updatedAt: String? = null,
+    val plan: UserPlan? = null
 )

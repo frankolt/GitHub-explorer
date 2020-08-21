@@ -28,5 +28,14 @@ data class PublicUserResponse(
     @Json(name = "blog") val blog: String? = null,
     @Json(name = "location") val location: String? = null,
     @Json(name = "email") val email: String? = null,
-    @Json(name = "hireable") val hireable: Boolean? = null
+    @Json(name = "hireable") val hireable: Boolean? = null,
+    @Json(name = "bio") val bio: String? = null,
+    @Json(name = "twitter_username") val twitterUsername: String? = null,
+    @Json(name = "public_repos") val publicRepos: Long? = null,
+    @Json(name = "public_gists") val publicGists: Long? = null,
+    @Json(name = "followers") val followers: Long? = null,
+    @Json(name = "following") val following: Long? = null,
+    @Json(name = "created_at") val createdAt: String? = null,
+    @Json(name = "updated_at") val updatedAt: String? = null,
+    @Json(name = "plan") val plan: UserPlanResponse? = null
 )
