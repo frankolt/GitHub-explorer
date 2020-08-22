@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GitHub explorer</string>
     <string name="search.query">Search GitHub</string>
+    <string name="userdetails.format_username_and_name">%s (%s)</string>
+    <string name="userdetails.format_followers_and_following">%s followers \u00B7 %s following</string>
     <string name="content_description.navigation.back">Navigate back</string>
     <string name="content_description.navigation.view_in_browser">View in browser</string>
 </resources>

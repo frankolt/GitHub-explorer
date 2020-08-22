@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.frankolt.githubexplorer.R
 import io.github.frankolt.githubexplorer.databinding.FragmentUserDetailsBinding
+import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
 
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
@@ -22,6 +26,56 @@ class UserDetailsFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: UserDetailsViewModel by viewModels()
+
+    private val userDetailsObserver = Observer<UserDetails> {
+        // TODO: What happens if `avatarUrl` is `null`?
+        it.avatarUrl?.let { avatarUrl ->
+            Glide.with(this).load(avatarUrl).centerCrop().into(binding.avatar)
+        }
+        if (it.name != null) {
+            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
+            //  though, so perhaps it shouldn't be nullable.
+            it.login?.let { login ->
+                binding.name.text =
+                    getString(R.string.userdetails_format_username_and_name).format(login, it.name)
+            }
+        } else {
+            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
+            //  though, so perhaps it shouldn't be nullable.
+            it.login?.let { login ->
+                binding.name.text = login
+            }
+        }
+        binding.itemFollowersAndFollowing.text =
+            getString(R.string.userdetails_format_followers_and_following).format(
+                it.followersAndFollowing.first,
+                it.followersAndFollowing.second
+            )
+        it.company?.let { company ->
+            with(binding.itemCompany) {
+                text = company
+                visibility = View.VISIBLE
+            }
+        }
+        it.location?.let { location ->
+            with(binding.itemLocation) {
+                text = location
+                visibility = View.VISIBLE
+            }
+        }
+        it.email?.let { email ->
+            with(binding.itemEmail) {
+                text = email
+                visibility = View.VISIBLE
+            }
+        }
+        it.blog?.let { blog ->
+            with(binding.itemBlog) {
+                text = blog
+                visibility = View.VISIBLE
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +98,15 @@ class UserDetailsFragment : Fragment() {
     }
 
     private fun observe() {
+        viewModel.userDetails.observe(viewLifecycleOwner, userDetailsObserver)
     }
 
     private fun setupUi() {
+        binding.backNavigationArrow.setOnClickListener {
+            // TODO: Implement back navigation.
+        }
+        binding.viewInBrowserIcon.setOnClickListener {
+            // TODO: Implement navigation to the user page in external browser.
+        }
     }
 }
