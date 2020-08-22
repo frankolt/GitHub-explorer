@@ -1,5 +1,6 @@
 package io.github.frankolt.githubexplorer.data.http.github
 
+import io.github.frankolt.githubexplorer.data.http.github.models.RepositoryResponse
 import io.github.frankolt.githubexplorer.data.http.github.models.UserResponse
 import io.github.frankolt.githubexplorer.data.http.github.models.RepositorySearchResultResponse
 import retrofit2.http.GET
@@ -21,4 +22,10 @@ interface GitHubService {
     suspend fun getUser(
         @Path("username") username: String
     ): UserResponse
+
+    @GET("/repos/{owner}/{repo}")
+    suspend fun getRepository(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String
+    ): RepositoryResponse
 }
