@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.update
 import io.github.frankolt.githubexplorer.ui.repositorysearch.adapters.RepositorySearchAdapter
+import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 
 @AndroidEntryPoint
 class RepositorySearchFragment : Fragment() {
@@ -28,8 +31,18 @@ class RepositorySearchFragment : Fragment() {
 
     private val viewModel: RepositorySearchViewModel by viewModels()
 
-    private val searchAdapter =
-        RepositorySearchAdapter()
+    private val eventsObserver = Observer<RepositorySearchEvent> {
+        when (it) {
+            is RepositorySearchEvent.OpenUserDetails -> findNavController().navigate(
+                RepositorySearchFragmentDirections
+                    .actionRepositorySearchFragmentToUserDetailsFragment(it.username)
+            )
+        }
+    }
+
+    private val searchAdapter = RepositorySearchAdapter().apply {
+        setOnAvatarClickListener { viewModel.openUserDetails(it) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +72,7 @@ class RepositorySearchFragment : Fragment() {
     private fun observe() {
         viewModel.query.observe(viewLifecycleOwner) { binding.queryInputField.update(it) }
         viewModel.searchResultItems.observe(viewLifecycleOwner) { searchAdapter.data = it }
+        viewModel.events.observe(viewLifecycleOwner, eventsObserver)
     }
 
     private fun setupUi() {

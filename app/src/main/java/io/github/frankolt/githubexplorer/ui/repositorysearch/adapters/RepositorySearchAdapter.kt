@@ -18,6 +18,9 @@ class RepositorySearchAdapter(
             notifyDataSetChanged()
         }
 
+    private var onAvatarClickListener: ((String) -> Unit)? = null
+    private var onRepositoryClickListener: ((String, String) -> Unit)? = null
+
     override fun getItemCount() = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -30,7 +33,15 @@ class RepositorySearchAdapter(
         holder.bind(data[position])
     }
 
-    class ViewHolder(
+    fun setOnAvatarClickListener(listener: (String) -> Unit) {
+        onAvatarClickListener = listener
+    }
+
+    fun setOnRepositoryClickListener(listener: (String, String) -> Unit) {
+        onRepositoryClickListener = listener
+    }
+
+    inner class ViewHolder(
         private val context: Context,
         private val binding: ViewRepositoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -40,7 +51,9 @@ class RepositorySearchAdapter(
             item.owner?.avatarUrl?.let {
                 Glide.with(context).load(it).centerCrop().into(binding.repositoryOwnerThumbnail)
             }
+            binding.repositoryOwnerThumbnail.setOnClickListener { onAvatarClickListener?.invoke(item.owner!!.login!!) }
             binding.repositoryName.text = item.fullName
+            binding.repositoryName.setOnClickListener { onRepositoryClickListener?.invoke(item.owner!!.login!!, item.name!!) }
             binding.watchers.text = item.watchersCount.toString()
             binding.forks.text = item.forksCount.toString()
             binding.issues.text = item.openIssuesCount.toString()

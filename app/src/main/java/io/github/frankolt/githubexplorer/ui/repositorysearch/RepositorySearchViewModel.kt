@@ -7,21 +7,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.RepositorySearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
+import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
+import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 import kotlinx.coroutines.launch
 
 class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
 ) : ViewModel() {
 
-    private var _query = MutableLiveData<String>()
+    private val _query = MutableLiveData<String>()
 
     val query: LiveData<String>
         get() = _query
 
-    private var _searchResultItems = MutableLiveData<List<Repository>>()
+    private val _searchResultItems = MutableLiveData<List<Repository>>()
 
     val searchResultItems: LiveData<List<Repository>>
         get() = _searchResultItems
+
+    val events = SingleLiveEvent<RepositorySearchEvent>()
 
     fun search(query: String) = viewModelScope.launch {
         _query.value = query
@@ -30,5 +34,9 @@ class RepositorySearchViewModel @ViewModelInject constructor(
     // TODO: Remove. For testing purposes only.
     fun searchTimber() = viewModelScope.launch {
         _searchResultItems.value = repositorySearchInteractor.execute("timber").items
+    }
+
+    fun openUserDetails(username: String) {
+        events.value = RepositorySearchEvent.OpenUserDetails(username)
     }
 }

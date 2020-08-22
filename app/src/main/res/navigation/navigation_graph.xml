@@ -17,5 +17,10 @@
     <fragment
         android:id="@+id/userDetailsFragment"
         android:name="io.github.frankolt.githubexplorer.ui.userdetails.UserDetailsFragment"
-        android:label="UserDetailsFragment" />
+        android:label="UserDetailsFragment">
+
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 </navigation>
