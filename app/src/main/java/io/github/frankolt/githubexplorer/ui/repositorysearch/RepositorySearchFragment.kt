@@ -37,11 +37,16 @@ class RepositorySearchFragment : Fragment() {
                 RepositorySearchFragmentDirections
                     .actionRepositorySearchFragmentToUserDetailsFragment(it.username)
             )
+            is RepositorySearchEvent.OpenRepositoryDetails -> findNavController().navigate(
+                RepositorySearchFragmentDirections
+                    .actionRepositorySearchFragmentToRepositoryDetailsFragment(it.owner, it.repo)
+            )
         }
     }
 
     private val searchAdapter = RepositorySearchAdapter().apply {
         setOnAvatarClickListener { viewModel.openUserDetails(it) }
+        setOnRepositoryClickListener { owner, repo -> viewModel.openRepositoryDetails(owner, repo) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

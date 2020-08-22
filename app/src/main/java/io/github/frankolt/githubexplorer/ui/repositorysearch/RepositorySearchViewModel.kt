@@ -39,4 +39,8 @@ class RepositorySearchViewModel @ViewModelInject constructor(
     fun openUserDetails(username: String) {
         events.value = RepositorySearchEvent.OpenUserDetails(username)
     }
+
+    fun openRepositoryDetails(owner: String, repo: String) {
+        events.value = RepositorySearchEvent.OpenRepositoryDetails(owner, repo)
+    }
 }

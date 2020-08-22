@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/backNavigationArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_2x"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:contentDescription="@string/content_description.navigation.back"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/viewInBrowserIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:layout_marginEnd="@dimen/spacing_2x"
+        android:contentDescription="@string/content_description.navigation.view_in_browser"
+        android:src="@drawable/ic_public_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/repositoryOwnerThumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/spacing_2x"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toEndOf="@id/backNavigationArrow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_2x"
+        app:layout_constraintBottom_toBottomOf="@id/repositoryOwnerThumbnail"
+        app:layout_constraintStart_toEndOf="@id/repositoryOwnerThumbnail"
+        app:layout_constraintTop_toTopOf="@id/repositoryOwnerThumbnail"
+        tools:text="owner/repository" />
+
+    <ScrollView
+        android:id="@+id/repositoryDetailsScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/spacing_2x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repositoryOwnerThumbnail">
+
+        <LinearLayout
+            android:id="@+id/repositoryDetailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/itemCreatedAtAndUpdatedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_access_time_black_24dp"
+                tools:text="Created at July 14th, 2020 \u00B7 Updated at August 3rd, 2020"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_library_books_black_24dp"
+                tools:text="Written in Java"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemStars"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_star_black_24dp"
+                tools:text="291 stars"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemWatchers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_visibility_black_24dp"
+                tools:text="30 watchers"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemForks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_device_hub_black_24dp"
+                tools:text="13 forks"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemIssues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_error_black_24dp"
+                tools:text="23 issues"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemLicense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_gavel_black_24dp"
+                tools:text="MIT license"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/itemOrganization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/spacing_1x"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/spacing_6x"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_domain_black_24dp"
+                tools:text="Google"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/containerDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/spacing_2x"
+                android:paddingVertical="@dimen/spacing_1.5x"
+                android:visibility="gone"
+                tools:ignore="UseCompoundDrawables"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_description_black_24dp" />
+
+                <TextView
+                    android:id="@+id/itemDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/spacing_1x"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porta nibh eu risus faucibus auctor. Donec eu nisi eget mauris pretium dignissim. Pellentesque aliquet in felis et sodales. Quisque ullamcorper faucibus massa, id ullamcorper elit rutrum a. Curabitur aliquet sollicitudin enim eget varius. Donec egestas metus a purus bibendum vehicula. Ut suscipit metus sit amet turpis tincidunt, fringilla interdum ligula convallis." />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

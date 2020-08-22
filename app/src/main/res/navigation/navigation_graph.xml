@@ -12,6 +12,10 @@
         <action
             android:id="@+id/action_repositorySearchFragment_to_userDetailsFragment"
             app:destination="@id/userDetailsFragment" />
+
+        <action
+            android:id="@+id/action_repositorySearchFragment_to_repositoryDetailsFragment"
+            app:destination="@id/repositoryDetailsFragment" />
     </fragment>
 
     <fragment
@@ -21,6 +25,24 @@
 
         <argument
             android:name="username"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repositoryDetailsFragment"
+        android:name="io.github.frankolt.githubexplorer.ui.repositorydetails.RepositoryDetailsFragment"
+        android:label="RepositoryDetailsFragment">
+
+        <action
+            android:id="@+id/action_repositoryDetailsFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+
+        <argument
+            android:name="owner"
+            app:argType="string" />
+
+        <argument
+            android:name="repo"
             app:argType="string" />
     </fragment>
 </navigation>
