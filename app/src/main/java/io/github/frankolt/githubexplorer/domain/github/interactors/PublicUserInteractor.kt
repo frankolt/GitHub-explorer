@@ -12,6 +12,6 @@ class PublicUserInteractor @Inject constructor(
 ) {
 
     suspend fun execute(username: String): User = withContext(Dispatchers.IO) {
-        UserMapper.fromResponse(gitHubService.getPublicUser(username))
+        UserMapper.fromResponse(gitHubService.getUser(username))
     }
 }

@@ -12,6 +12,6 @@ class SearchInteractor @Inject constructor(
 ) {
 
     suspend fun execute(query: String): RepositorySearchResult = withContext(Dispatchers.IO) {
-        RepositorySearchResultMapper.fromResponse(gitHubService.search(query))
+        RepositorySearchResultMapper.fromResponse(gitHubService.searchRepositories(query))
     }
 }
