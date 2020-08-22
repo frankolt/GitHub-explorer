@@ -33,5 +33,11 @@ data class User(
     val following: Long? = null,
     val createdAt: String? = null,
     val updatedAt: String? = null,
+    val privateGists: Long? = null,
+    val totalPrivateRepos: Long? = null,
+    val ownedPrivateRepos: Long? = null,
+    val diskUsage: Long? = null,
+    val collaborators: Long? = null,
+    val hasTwoFactorAuthentication: Boolean? = null,
     val plan: UserPlan? = null
 )

@@ -4,7 +4,7 @@ import io.github.frankolt.githubexplorer.data.http.github.models.UserResponse
 import io.github.frankolt.githubexplorer.domain.github.models.User
 
 object UserMapper {
-    
+
     fun fromResponse(response: UserResponse) = User(
         response.login,
         response.id,
@@ -38,6 +38,12 @@ object UserMapper {
         response.following,
         response.createdAt,
         response.updatedAt,
+        response.privateGists,
+        response.totalPrivateRepos,
+        response.ownedPrivateRepos,
+        response.diskUsage,
+        response.collaborators,
+        response.hasTwoFactorAuthentication,
         response.plan?.let { UserPlanMapper.fromResponse(it) }
     )
 }

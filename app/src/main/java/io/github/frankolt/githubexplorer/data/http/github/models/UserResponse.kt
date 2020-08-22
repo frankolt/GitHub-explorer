@@ -37,5 +37,11 @@ data class UserResponse(
     @Json(name = "following") val following: Long? = null,
     @Json(name = "created_at") val createdAt: String? = null,
     @Json(name = "updated_at") val updatedAt: String? = null,
+    @Json(name = "private_gists") val privateGists: Long? = null,
+    @Json(name = "total_private_repos") val totalPrivateRepos: Long? = null,
+    @Json(name = "owned_private_repos") val ownedPrivateRepos: Long? = null,
+    @Json(name = "disk_usage") val diskUsage: Long? = null,
+    @Json(name = "collaborators") val collaborators: Long? = null,
+    @Json(name = "two_factor_authentication") val hasTwoFactorAuthentication: Boolean? = null,
     @Json(name = "plan") val plan: UserPlanResponse? = null
 )
