@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.frankolt.githubexplorer.databinding.FragmentPublicUserDetailsBinding
+import io.github.frankolt.githubexplorer.databinding.FragmentUserDetailsBinding
 
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
 
-    private var _binding: FragmentPublicUserDetailsBinding? = null
+    private var _binding: FragmentUserDetailsBinding? = null
 
     /**
      * This property is only valid after the call to `onCreateView`, but before the call to
@@ -28,7 +28,7 @@ class UserDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPublicUserDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.frankolt.githubexplorer.databinding.FragmentSearchBinding
+import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.update
 
 @AndroidEntryPoint
 class RepositorySearchFragment : Fragment() {
 
-    private var _binding: FragmentSearchBinding? = null
+    private var _binding: FragmentRepositorySearchBinding? = null
 
     /**
      * This property is only valid after the call to `onCreateView`, but before the call to
@@ -39,7 +39,7 @@ class RepositorySearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentRepositorySearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 

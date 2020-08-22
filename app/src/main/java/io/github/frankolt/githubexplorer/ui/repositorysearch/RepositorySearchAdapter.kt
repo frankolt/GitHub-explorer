@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.github.frankolt.githubexplorer.databinding.ViewSearchResultItemBinding
+import io.github.frankolt.githubexplorer.databinding.ViewRepositoryItemBinding
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 
 class RepositorySearchAdapter(
@@ -22,7 +22,7 @@ class RepositorySearchAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         parent.context,
-        ViewSearchResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ViewRepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,7 +31,7 @@ class RepositorySearchAdapter(
 
     class ViewHolder(
         private val context: Context,
-        private val binding: ViewSearchResultItemBinding
+        private val binding: ViewRepositoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Repository) {
