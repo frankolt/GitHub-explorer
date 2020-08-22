@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SearchInteractor @Inject constructor(
+class RepositorySearchInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 

@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.frankolt.githubexplorer.domain.github.interactors.SearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.RepositorySearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import kotlinx.coroutines.launch
 
 class SearchViewModel @ViewModelInject constructor(
-    private val searchInteractor: SearchInteractor
+    private val repositorySearchInteractor: RepositorySearchInteractor
 ) : ViewModel() {
 
     private var _query = MutableLiveData<String>()
@@ -29,6 +29,6 @@ class SearchViewModel @ViewModelInject constructor(
 
     // TODO: Remove. For testing purposes only.
     fun searchTimber() = viewModelScope.launch {
-        _searchResultItems.value = searchInteractor.execute("timber").items
+        _searchResultItems.value = repositorySearchInteractor.execute("timber").items
     }
 }
