@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.ui.publicuserdetails
+package io.github.frankolt.githubexplorer.ui.userdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentPublicUserDetailsBinding
 
 @AndroidEntryPoint
-class PublicUserDetailsFragment : Fragment() {
+class UserDetailsFragment : Fragment() {
 
     private var _binding: FragmentPublicUserDetailsBinding? = null
 
@@ -21,7 +21,7 @@ class PublicUserDetailsFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel: PublicUserDetailsViewModel by viewModels()
+    private val viewModel: UserDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

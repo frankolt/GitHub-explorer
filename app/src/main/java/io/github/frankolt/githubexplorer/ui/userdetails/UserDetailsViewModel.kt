@@ -1,10 +1,10 @@
-package io.github.frankolt.githubexplorer.ui.publicuserdetails
+package io.github.frankolt.githubexplorer.ui.userdetails
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import io.github.frankolt.githubexplorer.domain.github.interactors.UserInteractor
 
-class PublicUserDetailsViewModel @ViewModelInject constructor(
+class UserDetailsViewModel @ViewModelInject constructor(
     private val userInteractor: UserInteractor
 ) : ViewModel() {
 }

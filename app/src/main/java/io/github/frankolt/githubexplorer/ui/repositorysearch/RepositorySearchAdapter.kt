@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.ui.search
+package io.github.frankolt.githubexplorer.ui.repositorysearch
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import com.bumptech.glide.Glide
 import io.github.frankolt.githubexplorer.databinding.ViewSearchResultItemBinding
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 
-class SearchAdapter(
+class RepositorySearchAdapter(
     initialData: List<Repository> = listOf()
-) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RepositorySearchAdapter.ViewHolder>() {
 
     var data: List<Repository> = initialData
         set(value) {

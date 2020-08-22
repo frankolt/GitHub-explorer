@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.ui.search
+package io.github.frankolt.githubexplorer.ui.repositorysearch
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import io.github.frankolt.githubexplorer.domain.github.interactors.RepositorySea
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import kotlinx.coroutines.launch
 
-class SearchViewModel @ViewModelInject constructor(
+class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
 ) : ViewModel() {
 

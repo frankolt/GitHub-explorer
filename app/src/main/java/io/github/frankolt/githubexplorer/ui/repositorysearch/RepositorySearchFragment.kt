@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.ui.search
+package io.github.frankolt.githubexplorer.ui.repositorysearch
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import io.github.frankolt.githubexplorer.databinding.FragmentSearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.update
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class RepositorySearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
@@ -25,9 +25,9 @@ class SearchFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: RepositorySearchViewModel by viewModels()
 
-    private val searchAdapter = SearchAdapter()
+    private val searchAdapter = RepositorySearchAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

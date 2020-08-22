@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="io.github.frankolt.githubexplorer.ui.search.SearchFragment"
+        android:name="io.github.frankolt.githubexplorer.ui.repositorysearch.RepositorySearchFragment"
         android:label="SearchFragment" />
 </navigation>
