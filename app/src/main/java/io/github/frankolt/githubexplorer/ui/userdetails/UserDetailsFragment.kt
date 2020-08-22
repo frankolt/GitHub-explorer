@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,9 +111,7 @@ class UserDetailsFragment : Fragment() {
     }
 
     private fun setupUi() {
-        binding.backNavigationArrow.setOnClickListener {
-            // TODO: Implement back navigation.
-        }
+        binding.backNavigationArrow.setOnClickListener { findNavController().navigateUp() }
         binding.viewInBrowserIcon.setOnClickListener {
             // TODO: Implement navigation to the user page in external browser.
         }
