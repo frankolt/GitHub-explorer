@@ -25,6 +25,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/viewInBrowserIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:layout_marginEnd="@dimen/spacing_2x"
+        android:contentDescription="@string/content_description.navigation.view_in_browser"
+        android:src="@drawable/ic_public_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -35,26 +46,13 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="username (Name)" />
 
-    <TextView
-        android:id="@+id/viewInBrowser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_2x"
-        android:layout_marginBottom="@dimen/spacing_2x"
-        android:gravity="center"
-        android:minHeight="@dimen/spacing_5x"
-        android:paddingHorizontal="@dimen/spacing_1x"
-        android:text="@string/public_user_details.view_in_browser"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userDetailsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/spacing_2x"
         android:paddingTop="@dimen/spacing_2x"
-        app:layout_constraintBottom_toTopOf="@id/viewInBrowser"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImage" />
