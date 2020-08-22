@@ -5,6 +5,7 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -42,7 +43,6 @@ android {
 }
 
 dependencies {
-    def navigation_version = '2.3.0'
     def lifecycle_version = '2.2.0'
     def hilt_version = '2.28-alpha'
     def hilt_jetpack_version = '1.0.0-alpha02'
