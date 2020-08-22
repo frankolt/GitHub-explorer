@@ -1,5 +1,7 @@
 package io.github.frankolt.githubexplorer.ui.userdetails
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.R
 import io.github.frankolt.githubexplorer.databinding.FragmentUserDetailsBinding
+import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
 
 @AndroidEntryPoint
@@ -81,6 +84,14 @@ class UserDetailsFragment : Fragment() {
         }
     }
 
+    private val eventObserver = Observer<UserDetailsEvent> {
+        when (it) {
+            is UserDetailsEvent.OpenInBrowser -> startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getUserDetails(args.username)
@@ -108,12 +119,11 @@ class UserDetailsFragment : Fragment() {
 
     private fun observe() {
         viewModel.userDetails.observe(viewLifecycleOwner, userDetailsObserver)
+        viewModel.events.observe(viewLifecycleOwner, eventObserver)
     }
 
     private fun setupUi() {
         binding.backNavigationArrow.setOnClickListener { findNavController().navigateUp() }
-        binding.viewInBrowserIcon.setOnClickListener {
-            // TODO: Implement navigation to the user page in external browser.
-        }
+        binding.viewInBrowserIcon.setOnClickListener { viewModel.openInBrowser() }
     }
 }

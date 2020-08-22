@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.UserInteractor
+import io.github.frankolt.githubexplorer.domain.github.models.User
+import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
+import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
 import kotlinx.coroutines.launch
 
@@ -18,11 +21,15 @@ class UserDetailsViewModel @ViewModelInject constructor(
     val userDetails: LiveData<UserDetails>
         get() = _userDetails
 
+    val events = SingleLiveEvent<UserDetailsEvent>()
+
+    private var user: User? = null
+
     fun getUserDetails(username: String) = viewModelScope.launch {
-        _userDetails.value = userInteractor.execute(username).let {
+        user = userInteractor.execute(username).also {
             val followers = it.followers ?: 0
             val following = it.following ?: 0
-            UserDetails(
+            _userDetails.value = UserDetails(
                 it.avatarUrl,
                 it.login,
                 it.name,
@@ -33,5 +40,11 @@ class UserDetailsViewModel @ViewModelInject constructor(
                 it.blog
             )
         }
+
+    }
+
+    fun openInBrowser() {
+        // TODO: What if it's `null`?
+        user?.htmlUrl?.let { events.value = UserDetailsEvent.OpenInBrowser(it) }
     }
 }
