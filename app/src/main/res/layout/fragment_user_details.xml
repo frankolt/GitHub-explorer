@@ -118,5 +118,31 @@
             app:drawableStartCompat="@drawable/ic_link_black_24dp"
             tools:text="Blog"
             tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/containerBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/spacing_2x"
+            android:paddingVertical="@dimen/spacing_1.5x"
+            android:visibility="gone"
+            tools:ignore="UseCompoundDrawables"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_description_black_24dp" />
+
+            <TextView
+                android:id="@+id/itemBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacing_1x"
+                tools:ignore="RtlSymmetry"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porta nibh eu risus faucibus auctor. Donec eu nisi eget mauris pretium dignissim. Pellentesque aliquet in felis et sodales. Quisque ullamcorper faucibus massa, id ullamcorper elit rutrum a. Curabitur aliquet sollicitudin enim eget varius. Donec egestas metus a purus bibendum vehicula. Ut suscipit metus sit amet turpis tincidunt, fringilla interdum ligula convallis." />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

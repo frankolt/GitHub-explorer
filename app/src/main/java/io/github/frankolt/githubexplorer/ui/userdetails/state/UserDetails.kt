@@ -8,5 +8,6 @@ data class UserDetails(
     val company: String? = null,
     val location: String? = null,
     val email: String? = null,
-    val blog: String? = null
+    val blog: String? = null,
+    val bio: String? = null
 )

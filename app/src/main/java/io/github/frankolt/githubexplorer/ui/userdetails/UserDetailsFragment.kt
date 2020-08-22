@@ -82,6 +82,10 @@ class UserDetailsFragment : Fragment() {
                 visibility = View.VISIBLE
             }
         }
+        it.bio?.let { bio ->
+            binding.containerBio.visibility = View.VISIBLE
+            binding.itemBio.text = bio
+        }
     }
 
     private val eventObserver = Observer<UserDetailsEvent> {

@@ -37,7 +37,8 @@ class UserDetailsViewModel @ViewModelInject constructor(
                 it.company,
                 it.location,
                 it.email,
-                it.blog
+                it.blog,
+                it.bio
             )
         }
 
