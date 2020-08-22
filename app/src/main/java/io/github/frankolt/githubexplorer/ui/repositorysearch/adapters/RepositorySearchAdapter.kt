@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.ui.repositorysearch
+package io.github.frankolt.githubexplorer.ui.repositorysearch.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,10 +20,11 @@ class RepositorySearchAdapter(
 
     override fun getItemCount() = data.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        parent.context,
-        ViewRepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(
+            parent.context,
+            ViewRepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])

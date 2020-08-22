@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.update
+import io.github.frankolt.githubexplorer.ui.repositorysearch.adapters.RepositorySearchAdapter
 
 @AndroidEntryPoint
 class RepositorySearchFragment : Fragment() {
@@ -27,7 +28,8 @@ class RepositorySearchFragment : Fragment() {
 
     private val viewModel: RepositorySearchViewModel by viewModels()
 
-    private val searchAdapter = RepositorySearchAdapter()
+    private val searchAdapter =
+        RepositorySearchAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
