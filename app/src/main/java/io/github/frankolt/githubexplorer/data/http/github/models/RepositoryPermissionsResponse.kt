@@ -1,7 +1,9 @@
 package io.github.frankolt.githubexplorer.data.http.github.models
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class RepositoryPermissionsResponse(
     @Json(name = "admin") val admin: Boolean? = null,
     @Json(name = "push") val push: Boolean? = null,
