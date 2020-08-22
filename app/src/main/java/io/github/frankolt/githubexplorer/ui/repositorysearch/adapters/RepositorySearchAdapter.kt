@@ -54,7 +54,7 @@ class RepositorySearchAdapter(
             binding.repositoryOwnerThumbnail.setOnClickListener { onAvatarClickListener?.invoke(item.owner!!.login!!) }
             binding.repositoryName.text = item.fullName
             binding.repositoryName.setOnClickListener { onRepositoryClickListener?.invoke(item.owner!!.login!!, item.name!!) }
-            binding.watchers.text = item.watchersCount.toString()
+            binding.stars.text = item.stargazersCount.toString()
             binding.forks.text = item.forksCount.toString()
             binding.issues.text = item.openIssuesCount.toString()
         }

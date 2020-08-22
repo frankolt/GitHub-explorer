@@ -23,12 +23,12 @@
         tools:text="retrofit" />
 
     <TextView
-        android:id="@+id/watchers"
+        android:id="@+id/stars"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_2x"
         android:gravity="center"
-        app:drawableStartCompat="@drawable/ic_visibility_black_24dp"
+        app:drawableStartCompat="@drawable/ic_star_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/repositoryOwnerThumbnail"
         tools:text="216" />
@@ -41,7 +41,7 @@
         android:gravity="center"
         app:drawableStartCompat="@drawable/ic_device_hub_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/watchers"
+        app:layout_constraintStart_toEndOf="@id/stars"
         tools:text="216" />
 
     <TextView
