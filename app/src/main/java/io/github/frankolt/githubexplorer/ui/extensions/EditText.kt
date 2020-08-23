@@ -1,6 +1,8 @@
 package io.github.frankolt.githubexplorer.ui.extensions
 
+import android.text.Editable
 import android.widget.EditText
+import io.github.frankolt.githubexplorer.ui.util.DebouncedTextWatcher
 
 /**
  * Updates the text only if necessary. This is to prevent calling the listeners when setting the
@@ -17,4 +19,11 @@ fun EditText.update(text: CharSequence) {
     if (this.text.toString() != text) {
         this.setText(text)
     }
+}
+
+fun EditText.addDebouncedTextChangedListener(
+    delayMs: Long,
+    afterTextChanged: (text: Editable?) -> Unit
+) {
+    addTextChangedListener(DebouncedTextWatcher(delayMs, afterTextChanged))
 }

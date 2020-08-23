@@ -10,6 +10,7 @@ import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
@@ -29,6 +30,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
 
     fun search(query: String) = viewModelScope.launch {
         _query.value = query
+        Timber.d("Query: $query")
     }
 
     // TODO: Remove. For testing purposes only.
