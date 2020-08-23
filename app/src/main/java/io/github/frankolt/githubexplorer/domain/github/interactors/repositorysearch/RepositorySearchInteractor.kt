@@ -11,7 +11,7 @@ class RepositorySearchInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 
-    suspend fun execute(query: String): RepositorySearchResult {
+    suspend fun load(query: String): RepositorySearchResult {
         return RepositorySearchResultMapper.fromResponse(gitHubService.searchRepositories(query))
     }
 }

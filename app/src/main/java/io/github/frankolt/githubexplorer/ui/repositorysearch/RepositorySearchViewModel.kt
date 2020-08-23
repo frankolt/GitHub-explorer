@@ -29,7 +29,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
 
     fun search(query: String) = viewModelScope.launch {
         _query.value = query
-        _searchResultItems.value = repositorySearchInteractor.execute(query).items
+        _searchResultItems.value = repositorySearchInteractor.load(query).items
     }
 
     fun openUserDetails(username: String) {
