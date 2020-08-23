@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -46,63 +47,63 @@ class RepositoryDetailsFragment : Fragment() {
                         it.createdAt,
                         it.updatedAt
                     )
-                visibility = View.VISIBLE
+                isVisible = true
             }
         } else if (it.createdAt != null) {
             with(binding.itemCreatedAtAndUpdatedAt) {
                 text = getString(R.string.repositorydetails_format_created_at).format(it.createdAt)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         } else if (it.updatedAt != null) {
             with(binding.itemCreatedAtAndUpdatedAt) {
                 text = getString(R.string.repositorydetails_format_updated_at).format(it.updatedAt)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.language?.let { language ->
             with(binding.itemLanguage) {
                 text = getString(R.string.repositorydetails_format_language).format(language)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.stargazersCount?.let { count ->
             with(binding.itemStars) {
                 text = getString(R.string.repositorydetails_format_stars).format(count)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.subscribersCount?.let { count ->
             with(binding.itemWatchers) {
                 text = getString(R.string.repositorydetails_format_watchers).format(count)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.forksCount?.let { count ->
             with(binding.itemForks) {
                 text = getString(R.string.repositorydetails_format_forks).format(count)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.openIssuesCount?.let { count ->
             with(binding.itemIssues) {
                 text = getString(R.string.repositorydetails_format_issues).format(count)
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.license?.name?.let { license ->
             with(binding.itemLicense) {
                 text = license
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.organization?.name?.let { organization ->
             with(binding.itemOrganization) {
                 text = organization
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.description?.let { description ->
-            binding.containerDescription.visibility = View.VISIBLE
+            binding.containerDescription.isVisible = true
             binding.itemDescription.text = description
         }
     }

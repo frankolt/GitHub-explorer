@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -61,29 +62,29 @@ class UserDetailsFragment : Fragment() {
         it.company?.let { company ->
             with(binding.itemCompany) {
                 text = company
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.location?.let { location ->
             with(binding.itemLocation) {
                 text = location
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.email?.let { email ->
             with(binding.itemEmail) {
                 text = email
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.blog?.let { blog ->
             with(binding.itemBlog) {
                 text = blog
-                visibility = View.VISIBLE
+                isVisible = true
             }
         }
         it.bio?.let { bio ->
-            binding.containerBio.visibility = View.VISIBLE
+            binding.containerBio.isVisible = true
             binding.itemBio.text = bio
         }
     }
