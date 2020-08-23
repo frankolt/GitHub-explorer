@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -134,6 +135,11 @@ class RepositoryDetailsFragment : Fragment() {
 
     private val eventObserver = Observer<RepositoryDetailsEvent> {
         when (it) {
+            is RepositoryDetailsEvent.Error -> Toast.makeText(
+                context,
+                it.message,
+                Toast.LENGTH_SHORT
+            ).show()
             is RepositoryDetailsEvent.OpenInBrowser -> startActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             )

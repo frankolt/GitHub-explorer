@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.User
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
@@ -26,22 +27,26 @@ class UserDetailsViewModel @ViewModelInject constructor(
     private var user: User? = null
 
     fun getUserDetails(username: String) = viewModelScope.launch {
-        user = userInteractor.execute(username).also {
-            val followers = it.followers ?: 0
-            val following = it.following ?: 0
-            _userDetails.value = UserDetails(
-                it.avatarUrl,
-                it.login,
-                it.name,
-                Pair(followers, following),
-                it.company,
-                it.location,
-                it.email,
-                it.blog,
-                it.bio
-            )
+        val result = userInteractor.execute(username)
+        if (result is AsyncResult.Success) {
+            user = result.value.also {
+                val followers = it.followers ?: 0
+                val following = it.following ?: 0
+                _userDetails.value = UserDetails(
+                    it.avatarUrl,
+                    it.login,
+                    it.name,
+                    Pair(followers, following),
+                    it.company,
+                    it.location,
+                    it.email,
+                    it.blog,
+                    it.bio
+                )
+            }
+        } else {
+            events.value = UserDetailsEvent.Error("An error occurred.")
         }
-
     }
 
     fun openInBrowser() {

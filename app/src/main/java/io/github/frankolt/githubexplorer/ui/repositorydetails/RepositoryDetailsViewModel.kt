@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
@@ -23,7 +24,12 @@ class RepositoryDetailsViewModel @ViewModelInject constructor(
     val events = SingleLiveEvent<RepositoryDetailsEvent>()
 
     fun getRepositoryDetails(owner: String, repo: String) = viewModelScope.launch {
-        _repository.value = repositoryInteractor.execute(owner, repo)
+        val result = repositoryInteractor.execute(owner, repo)
+        if (result is AsyncResult.Success) {
+            _repository.value = result.value
+        } else {
+            events.value = RepositoryDetailsEvent.Error("An error occurred.")
+        }
     }
 
     fun openInBrowser() {
