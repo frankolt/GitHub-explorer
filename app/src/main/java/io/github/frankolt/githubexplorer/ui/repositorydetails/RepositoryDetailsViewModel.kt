@@ -25,21 +25,21 @@ class RepositoryDetailsViewModel @ViewModelInject constructor(
     val events = SingleLiveEvent<RepositoryDetailsEvent>()
 
     fun getRepositoryDetails(owner: String, repo: String) = viewModelScope.launch {
-        val result = repositoryInteractor.load(owner, repo)
-        if (result is AsyncResult.Success) {
-            _repository.value = result.value
-        } else {
-            events.value = RepositoryDetailsEvent.Error(GENERIC_ERROR)
+        if (_repository.value == null) {
+            val result = repositoryInteractor.load(owner, repo)
+            if (result is AsyncResult.Success) {
+                _repository.value = result.value
+            } else {
+                events.value = RepositoryDetailsEvent.Error(GENERIC_ERROR)
+            }
         }
     }
 
     fun openInBrowser() {
-        // TODO: What if it's `null`?
         _repository.value?.htmlUrl?.let { events.value = RepositoryDetailsEvent.OpenInBrowser(it) }
     }
 
     fun openUserDetails() {
-        // TODO: What if it's `null`?
         _repository.value?.owner?.login?.let {
             events.value = RepositoryDetailsEvent.OpenUserDetails(it)
         }

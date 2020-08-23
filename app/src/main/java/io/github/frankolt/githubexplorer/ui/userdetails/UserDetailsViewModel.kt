@@ -25,16 +25,17 @@ class UserDetailsViewModel @ViewModelInject constructor(
     val events = SingleLiveEvent<UserDetailsEvent>()
 
     fun getUserDetails(username: String) = viewModelScope.launch {
-        val result = userInteractor.load(username)
-        if (result is AsyncResult.Success) {
-            _userDetails.value = result.value
-        } else {
-            events.value = UserDetailsEvent.Error(GENERIC_ERROR)
+        if (_userDetails.value == null) {
+            val result = userInteractor.load(username)
+            if (result is AsyncResult.Success) {
+                _userDetails.value = result.value
+            } else {
+                events.value = UserDetailsEvent.Error(GENERIC_ERROR)
+            }
         }
     }
 
     fun openInBrowser() {
-        // TODO: What if it's `null`?
         _userDetails.value?.htmlUrl?.let { events.value = UserDetailsEvent.OpenInBrowser(it) }
     }
 }
