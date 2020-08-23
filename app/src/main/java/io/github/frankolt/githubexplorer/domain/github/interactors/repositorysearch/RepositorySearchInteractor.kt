@@ -1,10 +1,10 @@
 package io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch
 
 import io.github.frankolt.githubexplorer.data.http.github.GitHubService
+import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.mappers.RepositorySearchResultMapper
 import io.github.frankolt.githubexplorer.domain.github.models.RepositorySearchResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 class RepositorySearchInteractor @Inject constructor(
@@ -17,7 +17,7 @@ class RepositorySearchInteractor @Inject constructor(
     private var isRequestInProgress = false
 
     @Throws(RequestInProgressException::class)
-    suspend fun load(query: String): RepositorySearchResult {
+    suspend fun load(query: String): AsyncResult<RepositorySearchResult> {
         if (isRequestInProgress) {
             throw RequestInProgressException()
         }
@@ -25,17 +25,22 @@ class RepositorySearchInteractor @Inject constructor(
         isLastPageReached = false
         lastQuery = query
         isRequestInProgress = true
-        val result = gitHubService.searchRepositories(
-            query,
-            page = GIT_HUB_FIRST_PAGE,
-            perPage = GIT_HUB_ITEMS_PER_PAGE
-        )
-        isRequestInProgress = false
-        return RepositorySearchResultMapper.fromResponse(result)
+        try {
+            val result = gitHubService.searchRepositories(
+                query,
+                page = GIT_HUB_FIRST_PAGE,
+                perPage = GIT_HUB_ITEMS_PER_PAGE
+            )
+            isRequestInProgress = false
+            return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
+        } catch (e: Exception) {
+            isRequestInProgress = false
+            return AsyncResult.Failure(e)
+        }
     }
 
     @Throws(RequestInProgressException::class, LastPageReachedException::class)
-    suspend fun loadNextPage(): RepositorySearchResult {
+    suspend fun loadNextPage(): AsyncResult<RepositorySearchResult> {
         if (isRequestInProgress) {
             throw RequestInProgressException()
         }
@@ -45,15 +50,20 @@ class RepositorySearchInteractor @Inject constructor(
         isRequestInProgress = true
         val query = lastQuery ?: throw IllegalStateException("No last query.")
         val page = lastRequestedPage++
-        val result = gitHubService.searchRepositories(
-            query,
-            page = page,
-            perPage = GIT_HUB_ITEMS_PER_PAGE
-        )
-        isRequestInProgress = false
-        if (result.items.isNullOrEmpty()) {
-            isLastPageReached = true
+        try {
+            val result = gitHubService.searchRepositories(
+                query,
+                page = page,
+                perPage = GIT_HUB_ITEMS_PER_PAGE
+            )
+            isRequestInProgress = false
+            if (result.items.isNullOrEmpty()) {
+                isLastPageReached = true
+            }
+            return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
+        } catch (e: Exception) {
+            isRequestInProgress = false
+            return AsyncResult.Failure(e)
         }
-        return RepositorySearchResultMapper.fromResponse(result)
     }
 }
