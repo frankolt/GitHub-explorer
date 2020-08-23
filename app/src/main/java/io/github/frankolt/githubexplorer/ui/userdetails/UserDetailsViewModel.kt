@@ -27,7 +27,7 @@ class UserDetailsViewModel @ViewModelInject constructor(
     private var user: User? = null
 
     fun getUserDetails(username: String) = viewModelScope.launch {
-        val result = userInteractor.execute(username)
+        val result = userInteractor.load(username)
         if (result is AsyncResult.Success) {
             user = result.value.also {
                 val followers = it.followers ?: 0

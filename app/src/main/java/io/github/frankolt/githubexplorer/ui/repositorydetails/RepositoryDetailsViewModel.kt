@@ -24,7 +24,7 @@ class RepositoryDetailsViewModel @ViewModelInject constructor(
     val events = SingleLiveEvent<RepositoryDetailsEvent>()
 
     fun getRepositoryDetails(owner: String, repo: String) = viewModelScope.launch {
-        val result = repositoryInteractor.execute(owner, repo)
+        val result = repositoryInteractor.load(owner, repo)
         if (result is AsyncResult.Success) {
             _repository.value = result.value
         } else {

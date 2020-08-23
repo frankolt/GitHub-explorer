@@ -13,7 +13,7 @@ class UserInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 
-    suspend fun execute(username: String): AsyncResult<User> = try {
+    suspend fun load(username: String): AsyncResult<User> = try {
         AsyncResult.Success(UserMapper.fromResponse(gitHubService.getUser(username)))
     } catch (e: Exception) {
         AsyncResult.Failure(e)

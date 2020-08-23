@@ -13,7 +13,7 @@ class RepositoryInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 
-    suspend fun execute(owner: String, repo: String): AsyncResult<Repository> = try {
+    suspend fun load(owner: String, repo: String): AsyncResult<Repository> = try {
         AsyncResult.Success(RepositoryMapper.fromResponse(gitHubService.getRepository(owner, repo)))
     } catch (e: Exception) {
         AsyncResult.Failure(e)
