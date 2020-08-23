@@ -1,4 +1,4 @@
-package io.github.frankolt.githubexplorer.domain.github.interactors
+package io.github.frankolt.githubexplorer.domain.github.interactors.user
 
 import io.github.frankolt.githubexplorer.data.http.github.GitHubService
 import io.github.frankolt.githubexplorer.domain.github.mappers.UserMapper
