@@ -30,12 +30,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
 
     fun search(query: String) = viewModelScope.launch {
         _query.value = query
-        Timber.d("Query: $query")
-    }
-
-    // TODO: Remove. For testing purposes only.
-    fun searchTimber() = viewModelScope.launch {
-        _searchResultItems.value = repositorySearchInteractor.execute("timber").items
+        _searchResultItems.value = repositorySearchInteractor.execute(query).items
     }
 
     fun openUserDetails(username: String) {
