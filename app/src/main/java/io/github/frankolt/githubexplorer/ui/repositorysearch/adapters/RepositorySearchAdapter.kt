@@ -48,12 +48,12 @@ class RepositorySearchAdapter(
 
         fun bind(item: Repository) {
             // TODO: Handle cases where some fields are `null`.
+            binding.root.setOnClickListener { onRepositoryClickListener?.invoke(item.owner!!.login!!, item.name!!) }
             item.owner?.avatarUrl?.let {
                 Glide.with(context).load(it).centerCrop().into(binding.repositoryOwnerThumbnail)
             }
             binding.repositoryOwnerThumbnail.setOnClickListener { onAvatarClickListener?.invoke(item.owner!!.login!!) }
             binding.repositoryName.text = item.fullName
-            binding.repositoryName.setOnClickListener { onRepositoryClickListener?.invoke(item.owner!!.login!!, item.name!!) }
             binding.stars.text = item.stargazersCount.toString()
             binding.forks.text = item.forksCount.toString()
             binding.issues.text = item.openIssuesCount.toString()
