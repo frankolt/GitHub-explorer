@@ -11,40 +11,23 @@ import io.github.frankolt.githubexplorer.domain.github.models.User
 import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
-import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
 import kotlinx.coroutines.launch
 
 class UserDetailsViewModel @ViewModelInject constructor(
     private val userInteractor: UserInteractor
 ) : ViewModel() {
 
-    private val _userDetails = MutableLiveData<UserDetails>()
+    private val _userDetails = MutableLiveData<User>()
 
-    val userDetails: LiveData<UserDetails>
+    val userDetails: LiveData<User>
         get() = _userDetails
 
     val events = SingleLiveEvent<UserDetailsEvent>()
 
-    private var user: User? = null
-
     fun getUserDetails(username: String) = viewModelScope.launch {
         val result = userInteractor.load(username)
         if (result is AsyncResult.Success) {
-            user = result.value.also {
-                val followers = it.followers ?: 0
-                val following = it.following ?: 0
-                _userDetails.value = UserDetails(
-                    it.avatarUrl,
-                    it.login,
-                    it.name,
-                    Pair(followers, following),
-                    it.company,
-                    it.location,
-                    it.email,
-                    it.blog,
-                    it.bio
-                )
-            }
+            _userDetails.value = result.value
         } else {
             events.value = UserDetailsEvent.Error(GENERIC_ERROR)
         }
@@ -52,6 +35,6 @@ class UserDetailsViewModel @ViewModelInject constructor(
 
     fun openInBrowser() {
         // TODO: What if it's `null`?
-        user?.htmlUrl?.let { events.value = UserDetailsEvent.OpenInBrowser(it) }
+        _userDetails.value?.htmlUrl?.let { events.value = UserDetailsEvent.OpenInBrowser(it) }
     }
 }

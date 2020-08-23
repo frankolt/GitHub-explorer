@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.R
 import io.github.frankolt.githubexplorer.databinding.FragmentUserDetailsBinding
+import io.github.frankolt.githubexplorer.domain.github.models.User
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
-import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
 
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
@@ -36,7 +36,7 @@ class UserDetailsFragment : Fragment() {
 
     private val viewModel: UserDetailsViewModel by viewModels()
 
-    private val userDetailsObserver = Observer<UserDetails> {
+    private val userDetailsObserver = Observer<User> {
         // TODO: What happens if `avatarUrl` is `null`?
         it.avatarUrl?.let { avatarUrl ->
             Glide.with(this).load(avatarUrl).centerCrop().into(binding.avatar)
@@ -57,8 +57,8 @@ class UserDetailsFragment : Fragment() {
         }
         binding.itemFollowersAndFollowing.text =
             getString(R.string.userdetails_format_followers_and_following).format(
-                it.followersAndFollowing.first,
-                it.followersAndFollowing.second
+                it.followers ?: 0,
+                it.following ?: 0
             )
         it.company?.let { company ->
             with(binding.itemCompany) {
