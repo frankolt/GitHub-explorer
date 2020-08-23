@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.frankolt.githubexplorer.domain.github.interactors.RepositorySearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
