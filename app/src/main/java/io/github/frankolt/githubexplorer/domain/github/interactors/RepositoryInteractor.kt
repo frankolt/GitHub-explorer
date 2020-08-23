@@ -11,7 +11,7 @@ class RepositoryInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 
-    suspend fun execute(owner: String, repo: String): Repository = withContext(Dispatchers.IO) {
-        RepositoryMapper.fromResponse(gitHubService.getRepository(owner, repo))
+    suspend fun execute(owner: String, repo: String): Repository {
+        return RepositoryMapper.fromResponse(gitHubService.getRepository(owner, repo))
     }
 }

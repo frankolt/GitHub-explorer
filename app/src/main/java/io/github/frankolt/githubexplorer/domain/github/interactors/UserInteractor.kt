@@ -11,7 +11,7 @@ class UserInteractor @Inject constructor(
     private val gitHubService: GitHubService
 ) {
 
-    suspend fun execute(username: String): User = withContext(Dispatchers.IO) {
-        UserMapper.fromResponse(gitHubService.getUser(username))
+    suspend fun execute(username: String): User {
+        return UserMapper.fromResponse(gitHubService.getUser(username))
     }
 }
