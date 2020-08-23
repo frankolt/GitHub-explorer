@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractor
 import io.github.frankolt.githubexplorer.domain.github.models.User
+import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetails
@@ -45,7 +46,7 @@ class UserDetailsViewModel @ViewModelInject constructor(
                 )
             }
         } else {
-            events.value = UserDetailsEvent.Error("An error occurred.")
+            events.value = UserDetailsEvent.Error(GENERIC_ERROR)
         }
     }
 

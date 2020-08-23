@@ -10,6 +10,7 @@ import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysea
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RequestInProgressException
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
+import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 import kotlinx.coroutines.launch
@@ -41,7 +42,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
                 if (result is AsyncResult.Success) {
                     _searchResultItems.value = result.value.items
                 } else {
-                    events.value = RepositorySearchEvent.Error("An error occurred")
+                    events.value = RepositorySearchEvent.Error(GENERIC_ERROR)
                 }
             } catch (e: RequestInProgressException) {
                 // Do nothing.
@@ -73,7 +74,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
                 val newItems = result.value.items!!
                 _searchResultItems.value = oldItems + newItems
             } else {
-                events.value = RepositorySearchEvent.Error("An error occurred.")
+                events.value = RepositorySearchEvent.Error(GENERIC_ERROR)
             }
         } catch (e: RequestInProgressException) {
             // Do nothing.
