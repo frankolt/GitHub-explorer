@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
+import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedOnScrollListener
 import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedTextChangedListener
 import io.github.frankolt.githubexplorer.ui.extensions.update
 import io.github.frankolt.githubexplorer.ui.repositorysearch.adapters.RepositorySearchAdapter
@@ -90,14 +91,17 @@ class RepositorySearchFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.queryResultList.layoutManager = layoutManager
         binding.queryResultList.adapter = searchAdapter
-        binding.queryResultList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val totalItemCount = layoutManager.itemCount
-                val visibleItemCount = layoutManager.childCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-                viewModel.onListScrolled(visibleItemCount, lastVisibleItem, totalItemCount)
+        binding.queryResultList.addDebouncedOnScrollListener(
+            LIST_SCROLL_DELAY_MS,
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val totalItemCount = layoutManager.itemCount
+                    val visibleItemCount = layoutManager.childCount
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                    viewModel.onListScrolled(visibleItemCount, lastVisibleItem, totalItemCount)
+                }
             }
-        })
+        )
     }
 }
