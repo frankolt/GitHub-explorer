@@ -18,6 +18,8 @@ import io.github.frankolt.githubexplorer.R
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositoryDetailsBinding
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.repositorydetails.events.RepositoryDetailsEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class RepositoryDetailsFragment : Fragment() {
@@ -35,74 +37,96 @@ class RepositoryDetailsFragment : Fragment() {
 
     private val viewModel: RepositoryDetailsViewModel by viewModels()
 
-    private val repositoryObserver = Observer<Repository> {
-        it.owner?.avatarUrl?.let { url ->
+    private val repositoryObserver = Observer<Repository> { repository ->
+        repository.owner?.avatarUrl?.let { url ->
             Glide.with(this).load(url).centerCrop().into(binding.repositoryOwnerThumbnail)
         }
-        it.name?.let { name -> binding.name.text = name }
-        if (it.createdAt != null && it.updatedAt != null) {
+
+        repository.name?.let { name -> binding.name.text = name }
+
+        val formatter = SimpleDateFormat("LLLL dd, yyyy", Locale.US)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+        val formattedCreatedAt = repository.createdAt?.let { createdAt ->
+            parser.parse(createdAt)?.let { formatter.format(it) }
+        }
+        val formattedUpdatedAt = repository.updatedAt?.let { updatedAt ->
+            parser.parse(updatedAt)?.let { formatter.format(it) }
+        }
+        if (formattedCreatedAt != null && formattedUpdatedAt != null) {
             with(binding.itemCreatedAtAndUpdatedAt) {
                 text =
                     getString(R.string.repositorydetails_format_created_at_and_updated_at).format(
-                        it.createdAt,
-                        it.updatedAt
+                        formattedCreatedAt,
+                        formattedUpdatedAt
                     )
                 isVisible = true
             }
-        } else if (it.createdAt != null) {
+        } else if (formattedCreatedAt != null) {
             with(binding.itemCreatedAtAndUpdatedAt) {
-                text = getString(R.string.repositorydetails_format_created_at).format(it.createdAt)
+                text = getString(R.string.repositorydetails_format_created_at).format(
+                    formattedCreatedAt
+                )
                 isVisible = true
             }
-        } else if (it.updatedAt != null) {
+        } else if (formattedUpdatedAt != null) {
             with(binding.itemCreatedAtAndUpdatedAt) {
-                text = getString(R.string.repositorydetails_format_updated_at).format(it.updatedAt)
+                text = getString(R.string.repositorydetails_format_updated_at).format(
+                    formattedUpdatedAt
+                )
                 isVisible = true
             }
         }
-        it.language?.let { language ->
+
+        repository.language?.let { language ->
             with(binding.itemLanguage) {
                 text = getString(R.string.repositorydetails_format_language).format(language)
                 isVisible = true
             }
         }
-        it.stargazersCount?.let { count ->
+
+        repository.stargazersCount?.let { count ->
             with(binding.itemStars) {
                 text = getString(R.string.repositorydetails_format_stars).format(count)
                 isVisible = true
             }
         }
-        it.subscribersCount?.let { count ->
+
+        repository.subscribersCount?.let { count ->
             with(binding.itemWatchers) {
                 text = getString(R.string.repositorydetails_format_watchers).format(count)
                 isVisible = true
             }
         }
-        it.forksCount?.let { count ->
+
+        repository.forksCount?.let { count ->
             with(binding.itemForks) {
                 text = getString(R.string.repositorydetails_format_forks).format(count)
                 isVisible = true
             }
         }
-        it.openIssuesCount?.let { count ->
+
+        repository.openIssuesCount?.let { count ->
             with(binding.itemIssues) {
                 text = getString(R.string.repositorydetails_format_issues).format(count)
                 isVisible = true
             }
         }
-        it.license?.name?.let { license ->
+
+        repository.license?.name?.let { license ->
             with(binding.itemLicense) {
                 text = license
                 isVisible = true
             }
         }
-        it.organization?.name?.let { organization ->
+
+        repository.organization?.name?.let { organization ->
             with(binding.itemOrganization) {
                 text = organization
                 isVisible = true
             }
         }
-        it.description?.let { description ->
+
+        repository.description?.let { description ->
             binding.containerDescription.isVisible = true
             binding.itemDescription.text = description
         }

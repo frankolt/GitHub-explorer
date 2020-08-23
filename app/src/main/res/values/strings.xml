@@ -3,9 +3,9 @@
     <string name="search.query">Search GitHub</string>
     <string name="userdetails.format_username_and_name">%s (%s)</string>
     <string name="userdetails.format_followers_and_following">%s followers \u00B7 %s following</string>
-    <string name="repositorydetails.format_created_at_and_updated_at">Created at %s \u00B7 Updated at %s</string>
-    <string name="repositorydetails.format_created_at">Created at %s</string>
-    <string name="repositorydetails.format_updated_at">Updated at %s</string>
+    <string name="repositorydetails.format_created_at_and_updated_at">Created on %s \u00B7 Updated on %s</string>
+    <string name="repositorydetails.format_created_at">Created on %s</string>
+    <string name="repositorydetails.format_updated_at">Updated on %s</string>
     <string name="repositorydetails.format_language">Written in %s</string>
     <string name="repositorydetails.format_stars">%s stars</string>
     <string name="repositorydetails.format_watchers">%s watchers</string>
