@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
 import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedTextChangedListener
@@ -79,7 +80,18 @@ class RepositorySearchFragment : Fragment() {
         binding.queryInputField.addDebouncedTextChangedListener(QUERY_INPUT_FIELD_DELAY_MS) {
             viewModel.search(it.toString())
         }
-        binding.queryResultList.layoutManager = LinearLayoutManager(context)
+
+        val layoutManager = LinearLayoutManager(context)
+        binding.queryResultList.layoutManager = layoutManager
         binding.queryResultList.adapter = searchAdapter
+        binding.queryResultList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = layoutManager.itemCount
+                val visibleItemCount = layoutManager.childCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                viewModel.onListScrolled(visibleItemCount, lastVisibleItem, totalItemCount)
+            }
+        })
     }
 }

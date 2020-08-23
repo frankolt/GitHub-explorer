@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.LastPageReachedException
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RequestInProgressException
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
@@ -28,8 +31,10 @@ class RepositorySearchViewModel @ViewModelInject constructor(
     val events = SingleLiveEvent<RepositorySearchEvent>()
 
     fun search(query: String) = viewModelScope.launch {
-        _query.value = query
-        _searchResultItems.value = repositorySearchInteractor.load(query).items
+        if (query != _query.value) {
+            _query.value = query
+            _searchResultItems.value = repositorySearchInteractor.load(query).items
+        }
     }
 
     fun openUserDetails(username: String) {
@@ -38,5 +43,26 @@ class RepositorySearchViewModel @ViewModelInject constructor(
 
     fun openRepositoryDetails(owner: String, repo: String) {
         events.value = RepositorySearchEvent.OpenRepositoryDetails(owner, repo)
+    }
+
+    fun onListScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
+        if (visibleItemCount + lastVisibleItemPosition + VISIBLE_ITEM_THRESHOLD >= totalItemCount) {
+            loadNextPage()
+        }
+    }
+
+    private fun loadNextPage() = viewModelScope.launch {
+        val oldItems = _searchResultItems.value ?: throw IllegalStateException("No old items.")
+        try {
+            // Won't be `null` or empty. This is checked by the interactor.
+            val newItems = repositorySearchInteractor.loadNextPage().items!!
+            _searchResultItems.value = oldItems + newItems
+        } catch (e: RequestInProgressException) {
+            // Do nothing.
+            Timber.e(e)
+        } catch (e: LastPageReachedException) {
+            // Do nothing.
+            Timber.e(e)
+        }
     }
 }
