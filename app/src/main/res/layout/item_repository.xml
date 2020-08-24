@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/repositoryName"
-        style="@style/RepositoryTextStyle"
+        style="@style/RepositoryNameTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_2x"
