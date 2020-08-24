@@ -21,6 +21,7 @@ import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedTextChangedLi
 import io.github.frankolt.githubexplorer.ui.extensions.update
 import io.github.frankolt.githubexplorer.ui.repositorysearch.adapters.RepositorySearchAdapter
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
+import io.github.frankolt.githubexplorer.ui.repositorysearch.state.PaginationState
 import io.github.frankolt.githubexplorer.ui.repositorysearch.state.QueryState
 
 @AndroidEntryPoint
@@ -41,7 +42,7 @@ class RepositorySearchFragment : Fragment() {
         when (state) {
             is QueryState.Empty -> showEmptyState()
             is QueryState.Loading -> showLoadingState()
-            is QueryState.Loaded -> showResultItemList(state.items)
+            is QueryState.Loaded -> showResultItemList(state.items, state.paginationState)
             is QueryState.Error -> showErrorState()
         }
     }
@@ -67,6 +68,7 @@ class RepositorySearchFragment : Fragment() {
     private val searchAdapter = RepositorySearchAdapter().apply {
         setOnAvatarClickListener { viewModel.openUserDetails(it) }
         setOnRepositoryClickListener { owner, repo -> viewModel.openRepositoryDetails(owner, repo) }
+        setOnRetryClickListener { viewModel.retryNextPage() }
     }
 
     override fun onCreateView(
@@ -133,12 +135,13 @@ class RepositorySearchFragment : Fragment() {
         binding.queryResultListErrorStateContainer.isVisible = false
     }
 
-    private fun showResultItemList(items: List<Repository>) {
+    private fun showResultItemList(items: List<Repository>, paginationState: PaginationState) {
         binding.queryResultListEmptyStateContainer.isVisible = false
         binding.queryResultList.isVisible = true
         binding.queryResultListProgressBar.isVisible = false
         binding.queryResultListErrorStateContainer.isVisible = false
         searchAdapter.data = items
+        searchAdapter.paginationState = paginationState
     }
 
     private fun showErrorState() {

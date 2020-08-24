@@ -9,15 +9,12 @@ import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.LastPageReachedException
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RequestInProgressException
-import io.github.frankolt.githubexplorer.domain.github.models.Repository
-import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
+import io.github.frankolt.githubexplorer.ui.repositorysearch.state.PaginationState
 import io.github.frankolt.githubexplorer.ui.repositorysearch.state.QueryState
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Error
-import java.lang.Exception
 
 class RepositorySearchViewModel @ViewModelInject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
@@ -68,6 +65,10 @@ class RepositorySearchViewModel @ViewModelInject constructor(
         }
     }
 
+    fun retryNextPage() {
+        loadNextPage()
+    }
+
     private fun load(query: String) = viewModelScope.launch {
         try {
             _queryState.value = QueryState.Loading
@@ -94,22 +95,23 @@ class RepositorySearchViewModel @ViewModelInject constructor(
         } else {
             throw IllegalStateException("No old items.")
         }
-        val oldItems = state.items
+
         try {
+            _queryState.value = state.copy(paginationState = PaginationState.Loading)
             val result = repositorySearchInteractor.loadNextPage()
             if (result is AsyncResult.Success) {
                 // Won't be `null` or empty. This is checked by the interactor.
                 val newItems = result.value.items!!
-                _queryState.value = QueryState.Loaded(oldItems + newItems)
+                _queryState.value = QueryState.Loaded(state.items + newItems)
             } else {
-                events.value = RepositorySearchEvent.Error(GENERIC_ERROR)
+                _queryState.value = state.copy(paginationState = PaginationState.Error)
             }
         } catch (e: RequestInProgressException) {
             // Do nothing.
             Timber.e(e)
         } catch (e: LastPageReachedException) {
-            // Do nothing.
             Timber.e(e)
+            _queryState.value = state.copy(paginationState = PaginationState.None)
         }
     }
 }

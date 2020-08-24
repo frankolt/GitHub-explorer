@@ -9,7 +9,8 @@ sealed class QueryState {
     object Loading : QueryState()
 
     data class Loaded(
-        val items: List<Repository>
+        val items: List<Repository>,
+        val paginationState: PaginationState = PaginationState.None
     ) : QueryState()
 
     object Error : QueryState()

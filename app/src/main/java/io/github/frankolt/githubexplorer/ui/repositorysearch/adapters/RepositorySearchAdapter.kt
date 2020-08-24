@@ -1,16 +1,16 @@
 package io.github.frankolt.githubexplorer.ui.repositorysearch.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import io.github.frankolt.githubexplorer.databinding.ItemPaginationStateBinding
 import io.github.frankolt.githubexplorer.databinding.ItemRepositoryBinding
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
+import io.github.frankolt.githubexplorer.ui.repositorysearch.state.PaginationState
 
 class RepositorySearchAdapter(
     initialData: List<Repository> = listOf()
-) : RecyclerView.Adapter<RepositorySearchAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RepositorySearchViewHolder>() {
 
     var data: List<Repository> = initialData
         set(value) {
@@ -18,19 +18,47 @@ class RepositorySearchAdapter(
             notifyDataSetChanged()
         }
 
+    var paginationState: PaginationState = PaginationState.None
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     private var onAvatarClickListener: ((String) -> Unit)? = null
     private var onRepositoryClickListener: ((String, String) -> Unit)? = null
+    private var onRetryClickListener: (() -> Unit)? = null
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data.size + 1 // Additional item for showing the pagination state.
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(
+    override fun getItemViewType(position: Int) = if (position == data.size) {
+        VIEW_TYPE_PAGINATION_STATE_ITEM
+    } else {
+        VIEW_TYPE_REPOSITORY_ITEM
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        VIEW_TYPE_REPOSITORY_ITEM -> RepositorySearchViewHolder.RepositoryItemViewHolder(
             parent.context,
             ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
+        VIEW_TYPE_PAGINATION_STATE_ITEM -> RepositorySearchViewHolder.PaginationStateItemViewHolder(
+            ItemPaginationStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+        else -> throw IllegalStateException("View type not supported.")
+    }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+    override fun onBindViewHolder(holder: RepositorySearchViewHolder, position: Int) {
+        when (holder) {
+            is RepositorySearchViewHolder.RepositoryItemViewHolder -> holder.bind(
+                data[position],
+                onAvatarClickListener,
+                onRepositoryClickListener
+            )
+            is RepositorySearchViewHolder.PaginationStateItemViewHolder -> holder.bind(
+                paginationState,
+                onRetryClickListener
+            )
+        }
     }
 
     fun setOnAvatarClickListener(listener: (String) -> Unit) {
@@ -41,26 +69,7 @@ class RepositorySearchAdapter(
         onRepositoryClickListener = listener
     }
 
-    inner class ViewHolder(
-        private val context: Context,
-        private val binding: ItemRepositoryBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Repository) {
-            // TODO: Handle cases where some fields are `null`.
-            binding.root.setOnClickListener {
-                onRepositoryClickListener?.invoke(item.owner!!.login!!, item.name!!)
-            }
-            item.owner?.avatarUrl?.let {
-                Glide.with(context).load(it).centerCrop().into(binding.repositoryOwnerThumbnail)
-            }
-            binding.repositoryOwnerThumbnail.setOnClickListener {
-                onAvatarClickListener?.invoke(item.owner!!.login!!)
-            }
-            binding.repositoryName.text = item.fullName
-            binding.stars.text = item.stargazersCount.toString()
-            binding.forks.text = item.forksCount.toString()
-            binding.issues.text = item.openIssuesCount.toString()
-        }
+    fun setOnRetryClickListener(listener: () -> Unit) {
+        onRetryClickListener = listener
     }
 }

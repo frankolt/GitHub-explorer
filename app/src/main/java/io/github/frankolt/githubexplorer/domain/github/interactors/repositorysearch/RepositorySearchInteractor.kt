@@ -14,7 +14,9 @@ class RepositorySearchInteractor @Inject constructor(
     private var lastQuery: String? = null
     private var lastRequestedPage = GIT_HUB_FIRST_PAGE
     private var isLastPageReached = false
-    private var isRequestInProgress = false
+
+    var isRequestInProgress = false
+        private set
 
     @Throws(RequestInProgressException::class)
     suspend fun load(query: String): AsyncResult<RepositorySearchResult> {
@@ -49,16 +51,17 @@ class RepositorySearchInteractor @Inject constructor(
         }
         isRequestInProgress = true
         val query = lastQuery ?: throw IllegalStateException("No last query.")
-        val page = lastRequestedPage++
         try {
             val result = gitHubService.searchRepositories(
                 query,
-                page = page,
+                page = lastRequestedPage + 1,
                 perPage = GIT_HUB_ITEMS_PER_PAGE
             )
             isRequestInProgress = false
             if (result.items.isNullOrEmpty()) {
                 isLastPageReached = true
+            } else {
+                ++lastRequestedPage
             }
             return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
         } catch (e: Exception) {
