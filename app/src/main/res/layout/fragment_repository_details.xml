@@ -29,29 +29,34 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/repositoryOwnerThumbnail"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="@dimen/spacing_2x"
-        android:layout_marginTop="@dimen/spacing_2x"
-        android:importantForAccessibility="no"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/backNavigationArrow"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_2x"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/repositoryOwnerThumbnail"
-        app:layout_constraintStart_toEndOf="@id/repositoryOwnerThumbnail"
-        app:layout_constraintTop_toTopOf="@id/repositoryOwnerThumbnail"
-        tools:text="owner/repository"
-        tools:visibility="visible" />
+        android:gravity="center"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backNavigationArrow">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/repositoryOwnerThumbnail"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:importantForAccessibility="no"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_2x"
+            android:visibility="gone"
+            tools:text="owner/repository"
+            tools:visibility="visible" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/repositoryDetailsScrollView"
@@ -62,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repositoryOwnerThumbnail"
+        app:layout_constraintTop_toBottomOf="@id/header"
         tools:visibility="visible">
 
         <LinearLayout
