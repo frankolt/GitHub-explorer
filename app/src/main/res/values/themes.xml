@@ -7,5 +7,30 @@
         <item name="colorSecondaryVariant">@color/github_blue_dark</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <item name="textAppearanceHeadline1">
+            @style/TextAppearance.GitHubExplorer.Headline1.Inter
+        </item>
+        <item name="textAppearanceHeadline2">
+            @style/TextAppearance.GitHubExplorer.Headline2.Inter
+        </item>
+        <item name="textAppearanceHeadline3">
+            @style/TextAppearance.GitHubExplorer.Headline3.Inter
+        </item>
+        <item name="textAppearanceHeadline4">
+            @style/TextAppearance.GitHubExplorer.Headline4.Inter
+        </item>
+        <item name="textAppearanceHeadline5">
+            @style/TextAppearance.GitHubExplorer.Headline5.Inter
+        </item>
+        <item name="textAppearanceHeadline6">
+            @style/TextAppearance.GitHubExplorer.Headline6.Inter
+        </item>
+        <item name="textAppearanceSubtitle1">
+            @style/TextAppearance.GitHubExplorer.Subtitle1.Inter
+        </item>
+        <item name="textAppearanceSubtitle2">
+            @style/TextAppearance.GitHubExplorer.Subtitle2.Inter
+        </item>
     </style>
 </resources>
