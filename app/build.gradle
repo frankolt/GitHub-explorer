@@ -99,7 +99,4 @@ dependencies {
 
     // MotionLayout
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
-
-    // Paging
-    implementation 'androidx.paging:paging-runtime-ktx:3.0.0-alpha05'
 }
