@@ -15,6 +15,10 @@
         <item name="android:textColor">?colorError</item>
     </style>
 
+    <style name="EmptyStateTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceHeadline6</item>
+    </style>
+
     <style name="ErrorButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">?colorError</item>
     </style>
