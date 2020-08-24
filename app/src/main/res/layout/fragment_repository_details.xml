@@ -29,10 +29,10 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/repositoryOwnerThumbnail"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginStart="@dimen/spacing_2x"
         android:layout_marginTop="@dimen/spacing_2x"
         android:importantForAccessibility="no"
