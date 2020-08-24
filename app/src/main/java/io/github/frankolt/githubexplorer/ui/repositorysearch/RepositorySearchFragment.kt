@@ -49,11 +49,6 @@ class RepositorySearchFragment : Fragment() {
 
     private val eventsObserver = Observer<RepositorySearchEvent> {
         when (it) {
-            is RepositorySearchEvent.Error -> Toast.makeText(
-                context,
-                it.message,
-                Toast.LENGTH_SHORT
-            ).show()
             is RepositorySearchEvent.OpenUserDetails -> findNavController().navigate(
                 RepositorySearchFragmentDirections
                     .actionRepositorySearchFragmentToUserDetailsFragment(it.username)
