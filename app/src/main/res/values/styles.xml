@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RepositoryTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
