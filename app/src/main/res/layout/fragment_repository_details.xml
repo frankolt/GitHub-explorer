@@ -42,8 +42,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/repositoryOwnerThumbnail"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:importantForAccessibility="no"
             android:visibility="gone"
             tools:visibility="visible" />
