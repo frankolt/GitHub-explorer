@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.frankolt.githubexplorer.databinding.FragmentRepositorySearchBinding
+import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedOnScrollListener
 import io.github.frankolt.githubexplorer.ui.extensions.addDebouncedTextChangedListener
 import io.github.frankolt.githubexplorer.ui.extensions.update
 import io.github.frankolt.githubexplorer.ui.repositorysearch.adapters.RepositorySearchAdapter
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
+import io.github.frankolt.githubexplorer.ui.repositorysearch.state.QueryState
 
 @AndroidEntryPoint
 class RepositorySearchFragment : Fragment() {
@@ -33,6 +36,15 @@ class RepositorySearchFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: RepositorySearchViewModel by viewModels()
+
+    private val queryStateObserver = Observer<QueryState> { state ->
+        when (state) {
+            is QueryState.Empty -> showEmptyState()
+            is QueryState.Loading -> showLoadingState()
+            is QueryState.Loaded -> showResultItemList(state.items)
+            is QueryState.Error -> showErrorState()
+        }
+    }
 
     private val eventsObserver = Observer<RepositorySearchEvent> {
         when (it) {
@@ -79,7 +91,7 @@ class RepositorySearchFragment : Fragment() {
 
     private fun observe() {
         viewModel.query.observe(viewLifecycleOwner) { binding.queryInputField.update(it) }
-        viewModel.searchResultItems.observe(viewLifecycleOwner) { searchAdapter.data = it }
+        viewModel.queryState.observe(viewLifecycleOwner, queryStateObserver)
         viewModel.events.observe(viewLifecycleOwner, eventsObserver)
     }
 
@@ -103,5 +115,36 @@ class RepositorySearchFragment : Fragment() {
                 }
             }
         )
+
+        binding.retryButton.setOnClickListener { viewModel.retry() }
+    }
+
+    private fun showEmptyState() {
+        binding.queryResultListEmptyStateContainer.isVisible = true
+        binding.queryResultList.isVisible = false
+        binding.queryResultListProgressBar.isVisible = false
+        binding.queryResultListErrorStateContainer.isVisible = false
+    }
+
+    private fun showLoadingState() {
+        binding.queryResultListEmptyStateContainer.isVisible = false
+        binding.queryResultList.isVisible = false
+        binding.queryResultListProgressBar.isVisible = true
+        binding.queryResultListErrorStateContainer.isVisible = false
+    }
+
+    private fun showResultItemList(items: List<Repository>) {
+        binding.queryResultListEmptyStateContainer.isVisible = false
+        binding.queryResultList.isVisible = true
+        binding.queryResultListProgressBar.isVisible = false
+        binding.queryResultListErrorStateContainer.isVisible = false
+        searchAdapter.data = items
+    }
+
+    private fun showErrorState() {
+        binding.queryResultListEmptyStateContainer.isVisible = false
+        binding.queryResultList.isVisible = false
+        binding.queryResultListProgressBar.isVisible = false
+        binding.queryResultListErrorStateContainer.isVisible = true
     }
 }

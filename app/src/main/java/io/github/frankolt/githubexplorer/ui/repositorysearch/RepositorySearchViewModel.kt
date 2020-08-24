@@ -13,6 +13,7 @@ import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
+import io.github.frankolt.githubexplorer.ui.repositorysearch.state.QueryState
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Error
@@ -27,28 +28,30 @@ class RepositorySearchViewModel @ViewModelInject constructor(
     val query: LiveData<String>
         get() = _query
 
-    private val _searchResultItems = MutableLiveData<List<Repository>>()
+    private val _queryState = MutableLiveData<QueryState>()
 
-    val searchResultItems: LiveData<List<Repository>>
-        get() = _searchResultItems
+    val queryState: LiveData<QueryState>
+        get() = _queryState
 
     val events = SingleLiveEvent<RepositorySearchEvent>()
 
-    fun search(query: String) = viewModelScope.launch {
-        if (query != _query.value || _searchResultItems.value.isNullOrEmpty()) {
-            _query.value = query
-            try {
-                val result = repositorySearchInteractor.load(query)
-                if (result is AsyncResult.Success) {
-                    _searchResultItems.value = result.value.items
-                } else {
-                    events.value = RepositorySearchEvent.Error(GENERIC_ERROR)
-                }
-            } catch (e: RequestInProgressException) {
-                // Do nothing.
-                Timber.e(e)
-            }
+    fun search(query: String) {
+        if (query == _query.value) {
+            return
         }
+
+        _query.value = query
+
+        if (query.isBlank()) {
+            _queryState.value = QueryState.Empty
+            return
+        }
+
+        load(query)
+    }
+
+    fun retry() {
+        _query.value?.let { load(it) }
     }
 
     fun openUserDetails(username: String) {
@@ -65,14 +68,39 @@ class RepositorySearchViewModel @ViewModelInject constructor(
         }
     }
 
+    private fun load(query: String) = viewModelScope.launch {
+        try {
+            _queryState.value = QueryState.Loading
+            val result = repositorySearchInteractor.load(query)
+            if (result is AsyncResult.Success) {
+                val items = result.value.items
+                if (items.isNullOrEmpty()) {
+                    _queryState.value = QueryState.Empty
+                } else {
+                    _queryState.value = QueryState.Loaded(result.value.items)
+                }
+            } else {
+                _queryState.value = QueryState.Error
+            }
+        } catch (e: RequestInProgressException) {
+            // Do nothing.
+            Timber.e(e)
+        }
+    }
+
     private fun loadNextPage() = viewModelScope.launch {
-        val oldItems = _searchResultItems.value ?: throw IllegalStateException("No old items.")
+        val state = if (_queryState.value is QueryState.Loaded) {
+            _queryState.value as QueryState.Loaded
+        } else {
+            throw IllegalStateException("No old items.")
+        }
+        val oldItems = state.items
         try {
             val result = repositorySearchInteractor.loadNextPage()
             if (result is AsyncResult.Success) {
                 // Won't be `null` or empty. This is checked by the interactor.
                 val newItems = result.value.items!!
-                _searchResultItems.value = oldItems + newItems
+                _queryState.value = QueryState.Loaded(oldItems + newItems)
             } else {
                 events.value = RepositorySearchEvent.Error(GENERIC_ERROR)
             }

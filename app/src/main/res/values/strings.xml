@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">GitHub explorer</string>
+    <string name="generic_error">An error has occurred.</string>
+    <string name="retry">Retry</string>
     <string name="search.query">Search GitHub</string>
+    <string name="search.instruction">Use the search bar above to search for repositories.</string>
     <string name="userdetails.format_username_and_name">%s (%s)</string>
     <string name="userdetails.format_followers_and_following">%s followers \u00B7 %s following</string>
     <string name="repositorydetails.format_created_at_and_updated_at">Created on %s \u00B7 Updated on %s</string>
