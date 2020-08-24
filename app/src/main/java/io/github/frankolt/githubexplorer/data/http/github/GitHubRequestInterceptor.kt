@@ -2,7 +2,9 @@ package io.github.frankolt.githubexplorer.data.http.github
 
 import okhttp3.Interceptor
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GitHubRequestInterceptor @Inject constructor(
 ) : Interceptor {
 
