@@ -40,8 +40,10 @@
             android:src="@drawable/ic_search_black_24dp" />
 
         <TextView
-            android:layout_width="240dp"
+            style="@style/EmptyStateTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_2x"
             android:gravity="center"
             android:text="@string/search.instruction" />
     </LinearLayout>
@@ -80,6 +82,7 @@
         tools:ignore="UseCompoundDrawables">
 
         <TextView
+            style="@style/ErrorStateTextStyle"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -87,6 +90,7 @@
 
         <Button
             android:id="@+id/retryButton"
+            style="@style/ErrorButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/retry" />
