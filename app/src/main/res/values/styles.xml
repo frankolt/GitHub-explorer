@@ -9,4 +9,13 @@
     <style name="InfoTextStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">?textAppearanceBody1</item>
     </style>
+
+    <style name="ErrorStateTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceHeadline6</item>
+        <item name="android:textColor">?colorError</item>
+    </style>
+
+    <style name="ErrorButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">?colorError</item>
+    </style>
 </resources>
