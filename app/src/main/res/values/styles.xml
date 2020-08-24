@@ -6,6 +6,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="UserNameTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="InfoTextStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">?textAppearanceBody1</item>
     </style>

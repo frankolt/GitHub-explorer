@@ -6,17 +6,6 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:importantForAccessibility="no"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <ImageView
         android:id="@+id/backNavigationArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,14 +31,27 @@
 
     <TextView
         android:id="@+id/name"
+        style="@style/UserNameTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_2x"
-        android:layout_marginBottom="@dimen/spacing_2x"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/avatar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/backNavigationArrow"
+        app:layout_constraintStart_toEndOf="@id/backNavigationArrow"
+        app:layout_constraintTop_toTopOf="@id/backNavigationArrow"
         tools:text="username (Name)"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="@dimen/spacing_2x"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backNavigationArrow"
         tools:visibility="visible" />
 
     <ScrollView
