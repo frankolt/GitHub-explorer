@@ -7,41 +7,52 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractor
-import io.github.frankolt.githubexplorer.domain.github.models.Repository
-import io.github.frankolt.githubexplorer.ui.GENERIC_ERROR
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.events.RepositoryDetailsEvent
+import io.github.frankolt.githubexplorer.ui.repositorydetails.state.RepositoryDetailsState
 import kotlinx.coroutines.launch
 
 class RepositoryDetailsViewModel @ViewModelInject constructor(
     private val repositoryInteractor: RepositoryInteractor
 ) : ViewModel() {
 
-    private val _repository = MutableLiveData<Repository>()
+    private val _repositoryDetailsState = MutableLiveData<RepositoryDetailsState>()
 
-    val repository: LiveData<Repository>
-        get() = _repository
+    val repositoryDetailsState: LiveData<RepositoryDetailsState>
+        get() = _repositoryDetailsState
 
     val events = SingleLiveEvent<RepositoryDetailsEvent>()
 
     fun getRepositoryDetails(owner: String, repo: String) = viewModelScope.launch {
-        if (_repository.value == null) {
-            val result = repositoryInteractor.load(owner, repo)
-            if (result is AsyncResult.Success) {
-                _repository.value = result.value
-            } else {
-                events.value = RepositoryDetailsEvent.Error(GENERIC_ERROR)
-            }
+        if (_repositoryDetailsState.value is RepositoryDetailsState.Loading || _repositoryDetailsState.value is RepositoryDetailsState.Loaded) {
+            return@launch
+        }
+        _repositoryDetailsState.value = RepositoryDetailsState.Loading
+        val result = repositoryInteractor.load(owner, repo)
+        if (result is AsyncResult.Success) {
+            _repositoryDetailsState.value = RepositoryDetailsState.Loaded(result.value)
+        } else {
+            _repositoryDetailsState.value = RepositoryDetailsState.Error
         }
     }
 
     fun openInBrowser() {
-        _repository.value?.htmlUrl?.let { events.value = RepositoryDetailsEvent.OpenInBrowser(it) }
+        _repositoryDetailsState.value?.let { state ->
+            if (state is RepositoryDetailsState.Loaded) {
+                state.repository.htmlUrl?.let {
+                    events.value = RepositoryDetailsEvent.OpenInBrowser(it)
+                }
+            }
+        }
     }
 
     fun openUserDetails() {
-        _repository.value?.owner?.login?.let {
-            events.value = RepositoryDetailsEvent.OpenUserDetails(it)
+        _repositoryDetailsState.value?.let { state ->
+            if (state is RepositoryDetailsState.Loaded) {
+                state.repository.owner?.login?.let {
+                    events.value = RepositoryDetailsEvent.OpenUserDetails(it)
+                }
+            }
         }
     }
 }

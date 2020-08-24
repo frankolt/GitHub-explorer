@@ -24,8 +24,10 @@
         android:layout_marginEnd="@dimen/spacing_2x"
         android:contentDescription="@string/content_description.navigation.view_in_browser"
         android:src="@drawable/ic_public_black_24dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/repositoryOwnerThumbnail"
@@ -34,28 +36,34 @@
         android:layout_marginStart="@dimen/spacing_2x"
         android:layout_marginTop="@dimen/spacing_2x"
         android:importantForAccessibility="no"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/backNavigationArrow"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_2x"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/repositoryOwnerThumbnail"
         app:layout_constraintStart_toEndOf="@id/repositoryOwnerThumbnail"
         app:layout_constraintTop_toTopOf="@id/repositoryOwnerThumbnail"
-        tools:text="owner/repository" />
+        tools:text="owner/repository"
+        tools:visibility="visible" />
 
     <ScrollView
         android:id="@+id/repositoryDetailsScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/spacing_2x"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repositoryOwnerThumbnail">
+        app:layout_constraintTop_toBottomOf="@id/repositoryOwnerThumbnail"
+        tools:visibility="visible">
 
         <LinearLayout
             android:id="@+id/repositoryDetailsContainer"
@@ -194,4 +202,40 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/errorStateContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/generic_error" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
