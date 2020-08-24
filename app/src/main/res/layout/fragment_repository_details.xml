@@ -44,7 +44,7 @@
             android:id="@+id/repositoryOwnerThumbnail"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:importantForAccessibility="no"
+            android:contentDescription="@string/content_description.user_profile_picture"
             android:visibility="gone"
             tools:visibility="visible" />
 

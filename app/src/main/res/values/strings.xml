@@ -16,4 +16,5 @@
     <string name="repositorydetails.format_issues">%s issues</string>
     <string name="content_description.navigation.back">Navigate back</string>
     <string name="content_description.navigation.view_in_browser">View in browser</string>
+    <string name="content_description.user_profile_picture">User profile picture</string>
 </resources>
