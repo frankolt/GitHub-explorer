@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +18,7 @@ import io.github.frankolt.githubexplorer.R
 import io.github.frankolt.githubexplorer.databinding.FragmentUserDetailsBinding
 import io.github.frankolt.githubexplorer.domain.github.models.User
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
+import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetailsState
 
 @AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
@@ -36,67 +36,16 @@ class UserDetailsFragment : Fragment() {
 
     private val viewModel: UserDetailsViewModel by viewModels()
 
-    private val userDetailsObserver = Observer<User> {
-        // TODO: What happens if `avatarUrl` is `null`?
-        it.avatarUrl?.let { avatarUrl ->
-            Glide.with(this).load(avatarUrl).centerCrop().into(binding.avatar)
-        }
-        if (it.name != null) {
-            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
-            //  though, so perhaps it shouldn't be nullable.
-            it.login?.let { login ->
-                binding.name.text =
-                    getString(R.string.userdetails_format_username_and_name).format(login, it.name)
-            }
-        } else {
-            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
-            //  though, so perhaps it shouldn't be nullable.
-            it.login?.let { login ->
-                binding.name.text = login
-            }
-        }
-        binding.itemFollowersAndFollowing.text =
-            getString(R.string.userdetails_format_followers_and_following).format(
-                it.followers ?: 0,
-                it.following ?: 0
-            )
-        it.company?.let { company ->
-            with(binding.itemCompany) {
-                text = company
-                isVisible = true
-            }
-        }
-        it.location?.let { location ->
-            with(binding.itemLocation) {
-                text = location
-                isVisible = true
-            }
-        }
-        it.email?.let { email ->
-            with(binding.itemEmail) {
-                text = email
-                isVisible = true
-            }
-        }
-        it.blog?.let { blog ->
-            with(binding.itemBlog) {
-                text = blog
-                isVisible = true
-            }
-        }
-        it.bio?.let { bio ->
-            binding.containerBio.isVisible = true
-            binding.itemBio.text = bio
+    private val userDetailsStateObserver = Observer<UserDetailsState> { state ->
+        when (state) {
+            is UserDetailsState.Loading -> showLoadingState()
+            is UserDetailsState.Loaded -> showUserDetails(state.user)
+            is UserDetailsState.Error -> showErrorState()
         }
     }
 
     private val eventObserver = Observer<UserDetailsEvent> {
         when (it) {
-            is UserDetailsEvent.Error -> Toast.makeText(
-                context,
-                it.message,
-                Toast.LENGTH_SHORT
-            ).show()
             is UserDetailsEvent.OpenInBrowser -> startActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             )
@@ -129,12 +78,102 @@ class UserDetailsFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.userDetails.observe(viewLifecycleOwner, userDetailsObserver)
+        viewModel.userDetailsState.observe(viewLifecycleOwner, userDetailsStateObserver)
         viewModel.events.observe(viewLifecycleOwner, eventObserver)
     }
 
     private fun setupUi() {
         binding.backNavigationArrow.setOnClickListener { findNavController().navigateUp() }
         binding.viewInBrowserIcon.setOnClickListener { viewModel.openInBrowser() }
+        binding.retryButton.setOnClickListener { viewModel.getUserDetails(args.username) }
+    }
+
+    private fun showLoadingState() {
+        binding.progressBar.isVisible = true
+        binding.viewInBrowserIcon.isVisible = false
+        binding.avatar.isVisible = false
+        binding.name.isVisible = false
+        binding.userDetailsScrollView.isVisible = false
+        binding.errorStateContainer.isVisible = false
+    }
+
+    private fun showUserDetails(user: User) {
+        binding.progressBar.isVisible = false
+        binding.viewInBrowserIcon.isVisible = true
+        binding.avatar.isVisible = true
+        binding.name.isVisible = true
+        binding.userDetailsScrollView.isVisible = true
+        binding.errorStateContainer.isVisible = false
+
+        // TODO: What happens if `avatarUrl` is `null`?
+        user.avatarUrl?.let { avatarUrl ->
+            Glide.with(this).load(avatarUrl).centerCrop().into(binding.avatar)
+        }
+
+        if (user.name != null) {
+            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
+            //  though, so perhaps it shouldn't be nullable.
+            user.login?.let { login ->
+                binding.name.text =
+                    getString(R.string.userdetails_format_username_and_name).format(
+                        login,
+                        user.name
+                    )
+            }
+        } else {
+            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
+            //  though, so perhaps it shouldn't be nullable.
+            user.login?.let { login ->
+                binding.name.text = login
+            }
+        }
+
+        binding.itemFollowersAndFollowing.text =
+            getString(R.string.userdetails_format_followers_and_following).format(
+                user.followers ?: 0,
+                user.following ?: 0
+            )
+
+        user.company?.let { company ->
+            with(binding.itemCompany) {
+                text = company
+                isVisible = true
+            }
+        }
+
+        user.location?.let { location ->
+            with(binding.itemLocation) {
+                text = location
+                isVisible = true
+            }
+        }
+
+        user.email?.let { email ->
+            with(binding.itemEmail) {
+                text = email
+                isVisible = true
+            }
+        }
+
+        user.blog?.let { blog ->
+            with(binding.itemBlog) {
+                text = blog
+                isVisible = true
+            }
+        }
+
+        user.bio?.let { bio ->
+            binding.containerBio.isVisible = true
+            binding.itemBio.text = bio
+        }
+    }
+
+    private fun showErrorState() {
+        binding.progressBar.isVisible = false
+        binding.viewInBrowserIcon.isVisible = false
+        binding.avatar.isVisible = false
+        binding.name.isVisible = false
+        binding.userDetailsScrollView.isVisible = false
+        binding.errorStateContainer.isVisible = true
     }
 }
