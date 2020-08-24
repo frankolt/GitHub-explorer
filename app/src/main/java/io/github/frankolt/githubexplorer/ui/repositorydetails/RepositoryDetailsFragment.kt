@@ -159,7 +159,7 @@ class RepositoryDetailsFragment : Fragment() {
             }
         }
 
-        repository.language?.let { language ->
+        repository.language?.takeIf { it.isNotBlank() }?.let { language ->
             with(binding.itemLanguage) {
                 text = getString(R.string.repositorydetails_format_language).format(language)
                 isVisible = true
@@ -194,21 +194,21 @@ class RepositoryDetailsFragment : Fragment() {
             }
         }
 
-        repository.license?.name?.let { license ->
+        repository.license?.name?.takeIf { it.isNotBlank() }?.let { license ->
             with(binding.itemLicense) {
                 text = license
                 isVisible = true
             }
         }
 
-        repository.organization?.name?.let { organization ->
+        repository.organization?.name?.takeIf { it.isNotBlank() }?.let { organization ->
             with(binding.itemOrganization) {
                 text = organization
                 isVisible = true
             }
         }
 
-        repository.description?.let { description ->
+        repository.description?.takeIf { it.isNotBlank() }?.let { description ->
             binding.containerDescription.isVisible = true
             binding.itemDescription.text = description
         }

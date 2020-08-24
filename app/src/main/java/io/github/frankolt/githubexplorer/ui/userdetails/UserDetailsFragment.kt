@@ -134,35 +134,35 @@ class UserDetailsFragment : Fragment() {
                 user.following ?: 0
             )
 
-        user.company?.let { company ->
+        user.company?.takeIf { it.isNotBlank() }?.let { company ->
             with(binding.itemCompany) {
                 text = company
                 isVisible = true
             }
         }
 
-        user.location?.let { location ->
+        user.location?.takeIf { it.isNotBlank() }?.let { location ->
             with(binding.itemLocation) {
                 text = location
                 isVisible = true
             }
         }
 
-        user.email?.let { email ->
+        user.email?.takeIf { it.isNotBlank() }?.let { email ->
             with(binding.itemEmail) {
                 text = email
                 isVisible = true
             }
         }
 
-        user.blog?.let { blog ->
+        user.blog?.takeIf { it.isNotBlank() }?.let { blog ->
             with(binding.itemBlog) {
                 text = blog
                 isVisible = true
             }
         }
 
-        user.bio?.let { bio ->
+        user.bio?.takeIf { it.isNotBlank() }?.let { bio ->
             binding.containerBio.isVisible = true
             binding.itemBio.text = bio
         }
