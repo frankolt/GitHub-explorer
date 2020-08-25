@@ -3,9 +3,9 @@ package io.github.frankolt.githubexplorer.domain.github.models
 data class Repository(
     val id: Long? = null,
     val nodeId: String? = null,
-    val name: String? = null,
-    val fullName: String? = null,
-    val owner: User? = null,
+    val name: String,
+    val fullName: String,
+    val owner: User,
     val isPrivate: Boolean? = null,
     val htmlUrl: String? = null,
     val description: String? = null,

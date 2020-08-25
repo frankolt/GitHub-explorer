@@ -5,12 +5,17 @@ import io.github.frankolt.githubexplorer.domain.github.models.Repository
 
 object RepositoryMapper {
 
+    /**
+     * Maps the `RepositoryResponse` model to the `Repository` model. If mandatory fields are
+     * missing, `NullPointerException` is thrown.
+     */
+    @Throws(NullPointerException::class)
     fun fromResponse(response: RepositoryResponse): Repository = Repository(
         response.id,
         response.nodeId,
-        response.name,
-        response.fullName,
-        response.owner?.let { UserMapper.fromResponse(it) },
+        response.name!!,
+        response.fullName!!,
+        UserMapper.fromResponse(response.owner!!),
         response.isPrivate,
         response.htmlUrl,
         response.description,

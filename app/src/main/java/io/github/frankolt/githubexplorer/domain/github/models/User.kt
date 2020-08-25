@@ -1,7 +1,7 @@
 package io.github.frankolt.githubexplorer.domain.github.models
 
 data class User(
-    val login: String? = null,
+    val login: String,
     val id: Long? = null,
     val nodeId: String? = null,
     val avatarUrl: String? = null,

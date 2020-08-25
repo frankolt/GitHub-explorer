@@ -5,8 +5,13 @@ import io.github.frankolt.githubexplorer.domain.github.models.User
 
 object UserMapper {
 
+    /**
+     * Maps the `UserResponse` model to the `User` model. If mandatory fields are missing,
+     * `NullPointerException` is thrown.
+     */
+    @Throws(NullPointerException::class)
     fun fromResponse(response: UserResponse) = User(
-        response.login,
+        response.login!!,
         response.id,
         response.nodeId,
         response.avatarUrl,

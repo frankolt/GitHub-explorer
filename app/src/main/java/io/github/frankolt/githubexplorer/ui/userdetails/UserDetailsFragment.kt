@@ -105,27 +105,17 @@ class UserDetailsFragment : Fragment() {
         binding.userDetailsScrollView.isVisible = true
         binding.errorStateContainer.isVisible = false
 
-        // TODO: What happens if `avatarUrl` is `null`?
         user.avatarUrl?.let { avatarUrl ->
             Glide.with(this).load(avatarUrl).centerCrop().into(binding.avatar)
         }
 
         if (user.name != null) {
-            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
-            //  though, so perhaps it shouldn't be nullable.
-            user.login?.let { login ->
-                binding.name.text =
-                    getString(R.string.userdetails_format_username_and_name).format(
-                        login,
-                        user.name
-                    )
-            }
+            binding.name.text = getString(R.string.userdetails_format_username_and_name).format(
+                user.login,
+                user.name
+            )
         } else {
-            // TODO: What happens if `login` is `null`? It probably shouldn't ever be `null`,
-            //  though, so perhaps it shouldn't be nullable.
-            user.login?.let { login ->
-                binding.name.text = login
-            }
+            binding.name.text = user.login
         }
 
         binding.itemFollowersAndFollowing.text =
