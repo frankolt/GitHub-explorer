@@ -14,42 +14,33 @@ class RepositorySearchInteractor @Inject constructor(
     private var lastQuery: String? = null
     private var lastRequestedPage = GIT_HUB_FIRST_PAGE
     private var isLastPageReached = false
+    private var isPaginationInProgress = false
 
-    var isRequestInProgress = false
-        private set
-
-    @Throws(RequestInProgressException::class)
     suspend fun load(query: String): AsyncResult<RepositorySearchResult> {
-        if (isRequestInProgress) {
-            throw RequestInProgressException()
-        }
         lastRequestedPage = GIT_HUB_FIRST_PAGE
         isLastPageReached = false
         lastQuery = query
-        isRequestInProgress = true
         try {
             val result = gitHubService.searchRepositories(
                 query,
                 page = GIT_HUB_FIRST_PAGE,
                 perPage = GIT_HUB_ITEMS_PER_PAGE
             )
-            isRequestInProgress = false
             return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
         } catch (e: Exception) {
-            isRequestInProgress = false
             return AsyncResult.Failure(e)
         }
     }
 
     @Throws(RequestInProgressException::class, LastPageReachedException::class)
     suspend fun loadNextPage(): AsyncResult<RepositorySearchResult> {
-        if (isRequestInProgress) {
+        if (isPaginationInProgress) {
             throw RequestInProgressException()
         }
         if (isLastPageReached) {
             throw LastPageReachedException()
         }
-        isRequestInProgress = true
+        isPaginationInProgress = true
         val query = lastQuery ?: throw IllegalStateException("No last query.")
         try {
             val result = gitHubService.searchRepositories(
@@ -57,7 +48,7 @@ class RepositorySearchInteractor @Inject constructor(
                 page = lastRequestedPage + 1,
                 perPage = GIT_HUB_ITEMS_PER_PAGE
             )
-            isRequestInProgress = false
+            isPaginationInProgress = false
             if (result.items.isNullOrEmpty()) {
                 isLastPageReached = true
             } else {
@@ -65,7 +56,7 @@ class RepositorySearchInteractor @Inject constructor(
             }
             return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
         } catch (e: Exception) {
-            isRequestInProgress = false
+            isPaginationInProgress = false
             return AsyncResult.Failure(e)
         }
     }
