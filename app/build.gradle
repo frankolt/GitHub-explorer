@@ -47,6 +47,7 @@ dependencies {
     def fragment_ktx_version = '1.2.5'
     def app_compat_version = '1.2.0'
     def material_version = '1.2.1'
+    def constraint_layout_version = '2.0.1'
     def timber_version = '4.7.1'
     def lifecycle_version = '2.2.0'
     def hilt_version = '2.28-alpha'
@@ -62,7 +63,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
     implementation "com.google.android.material:material:$material_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
