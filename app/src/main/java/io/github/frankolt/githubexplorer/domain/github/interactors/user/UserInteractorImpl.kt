@@ -6,7 +6,7 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapper
 import io.github.frankolt.githubexplorer.domain.github.models.User
 import javax.inject.Inject
 
-class UserInteractor @Inject constructor(
+class UserInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val userMapper: UserMapper
 ) {

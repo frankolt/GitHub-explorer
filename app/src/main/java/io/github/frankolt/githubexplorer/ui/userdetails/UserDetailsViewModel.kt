@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
-import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractorImpl
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetailsState
 import kotlinx.coroutines.launch
 
 class UserDetailsViewModel @ViewModelInject constructor(
-    private val userInteractor: UserInteractor
+    private val userInteractor: UserInteractorImpl
 ) : ViewModel() {
 
     private val _userDetailsState = MutableLiveData<UserDetailsState>()
