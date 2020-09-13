@@ -10,6 +10,8 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.repository.Reposi
 import io.github.frankolt.githubexplorer.domain.github.mappers.repository.RepositoryMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapperImpl
+import io.github.frankolt.githubexplorer.domain.github.mappers.repositorysearchresult.RepositorySearchResultMapper
+import io.github.frankolt.githubexplorer.domain.github.mappers.repositorysearchresult.RepositorySearchResultMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapper
@@ -33,4 +35,7 @@ interface ModelMapperModule {
 
     @Binds
     fun bindRepositoryMapper(mapper: RepositoryMapperImpl): RepositoryMapper
+
+    @Binds
+    fun bindRepositorySearchResultMapper(mapper: RepositorySearchResultMapperImpl): RepositorySearchResultMapper
 }
