@@ -6,7 +6,7 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.repository.Reposi
 import io.github.frankolt.githubexplorer.domain.github.models.Repository
 import javax.inject.Inject
 
-class RepositoryInteractor @Inject constructor(
+class RepositoryInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val repositoryMapper: RepositoryMapper
 ) {

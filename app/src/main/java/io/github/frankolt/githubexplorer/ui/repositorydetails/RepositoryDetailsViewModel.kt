@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
-import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractorImpl
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.events.RepositoryDetailsEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.state.RepositoryDetailsState
 import kotlinx.coroutines.launch
 
 class RepositoryDetailsViewModel @ViewModelInject constructor(
-    private val repositoryInteractor: RepositoryInteractor
+    private val repositoryInteractor: RepositoryInteractorImpl
 ) : ViewModel() {
 
     private val _repositoryDetailsState = MutableLiveData<RepositoryDetailsState>()
