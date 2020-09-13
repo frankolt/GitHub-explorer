@@ -8,6 +8,8 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMa
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapperImpl
+import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapper
+import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapperImpl
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -18,4 +20,7 @@ interface ModelMapperModule {
 
     @Binds
     fun bindRepositoryPermissionsMapper(mapper: RepositoryPermissionsMapperImpl): RepositoryPermissionsMapper
+
+    @Binds
+    fun bindUserPlanMapper(mapper: UserPlanMapperImpl): UserPlanMapper
 }
