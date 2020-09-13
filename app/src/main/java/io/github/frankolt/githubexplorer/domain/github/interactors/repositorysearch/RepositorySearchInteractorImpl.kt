@@ -7,7 +7,7 @@ import io.github.frankolt.githubexplorer.domain.github.models.RepositorySearchRe
 import java.lang.Exception
 import javax.inject.Inject
 
-class RepositorySearchInteractor @Inject constructor(
+class RepositorySearchInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val repositorySearchResultMapper: RepositorySearchResultMapper
 ) {

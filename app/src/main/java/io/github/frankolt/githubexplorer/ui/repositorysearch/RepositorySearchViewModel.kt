@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.LastPageReachedException
-import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractorImpl
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RequestInProgressException
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class RepositorySearchViewModel @ViewModelInject constructor(
-    private val repositorySearchInteractor: RepositorySearchInteractor
+    private val repositorySearchInteractor: RepositorySearchInteractorImpl
 ) : ViewModel() {
 
     private val _query = MutableLiveData<String>()
