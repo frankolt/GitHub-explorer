@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.LastPageReachedException
-import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractorImpl
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchParameters
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RequestInProgressException
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorysearch.events.RepositorySearchEvent
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class RepositorySearchViewModel @ViewModelInject constructor(
-    private val repositorySearchInteractor: RepositorySearchInteractorImpl
+    private val repositorySearchInteractor: RepositorySearchInteractor
 ) : ViewModel() {
 
     private val _query = MutableLiveData<String>()
@@ -72,7 +73,7 @@ class RepositorySearchViewModel @ViewModelInject constructor(
     private fun load(query: String) = viewModelScope.launch {
         try {
             _queryState.value = QueryState.Loading
-            val result = repositorySearchInteractor.load(query)
+            val result = repositorySearchInteractor.execute(RepositorySearchParameters(query))
             if (result is AsyncResult.Success) {
                 val items = result.value.items
                 if (items.isNullOrEmpty()) {

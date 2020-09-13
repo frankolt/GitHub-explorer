@@ -10,20 +10,20 @@ import javax.inject.Inject
 class RepositorySearchInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val repositorySearchResultMapper: RepositorySearchResultMapper
-) {
+) : RepositorySearchInteractor {
 
     private var lastQuery: String? = null
     private var lastRequestedPage = GIT_HUB_FIRST_PAGE
     private var isLastPageReached = false
     private var isPaginationInProgress = false
 
-    suspend fun load(query: String): AsyncResult<RepositorySearchResult> {
+    override suspend fun execute(parameters: RepositorySearchParameters): AsyncResult<RepositorySearchResult> {
         lastRequestedPage = GIT_HUB_FIRST_PAGE
         isLastPageReached = false
-        lastQuery = query
+        lastQuery = parameters.query
         try {
             val result = gitHubService.searchRepositories(
-                query,
+                parameters.query,
                 page = GIT_HUB_FIRST_PAGE,
                 perPage = GIT_HUB_ITEMS_PER_PAGE
             )
@@ -34,7 +34,7 @@ class RepositorySearchInteractorImpl @Inject constructor(
     }
 
     @Throws(RequestInProgressException::class, LastPageReachedException::class)
-    suspend fun loadNextPage(): AsyncResult<RepositorySearchResult> {
+    override suspend fun loadNextPage(): AsyncResult<RepositorySearchResult> {
         if (isPaginationInProgress) {
             throw RequestInProgressException()
         }
