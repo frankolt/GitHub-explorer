@@ -2,13 +2,14 @@ package io.github.frankolt.githubexplorer.domain.github.interactors.repositoryse
 
 import io.github.frankolt.githubexplorer.data.http.github.GitHubService
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
-import io.github.frankolt.githubexplorer.domain.github.mappers.RepositorySearchResultMapper
+import io.github.frankolt.githubexplorer.domain.github.mappers.repositorysearchresult.RepositorySearchResultMapper
 import io.github.frankolt.githubexplorer.domain.github.models.RepositorySearchResult
 import java.lang.Exception
 import javax.inject.Inject
 
 class RepositorySearchInteractor @Inject constructor(
-    private val gitHubService: GitHubService
+    private val gitHubService: GitHubService,
+    private val repositorySearchResultMapper: RepositorySearchResultMapper
 ) {
 
     private var lastQuery: String? = null
@@ -26,7 +27,7 @@ class RepositorySearchInteractor @Inject constructor(
                 page = GIT_HUB_FIRST_PAGE,
                 perPage = GIT_HUB_ITEMS_PER_PAGE
             )
-            return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
+            return AsyncResult.Success(repositorySearchResultMapper.map(result))
         } catch (e: Exception) {
             return AsyncResult.Failure(e)
         }
@@ -54,7 +55,7 @@ class RepositorySearchInteractor @Inject constructor(
             } else {
                 ++lastRequestedPage
             }
-            return AsyncResult.Success(RepositorySearchResultMapper.fromResponse(result))
+            return AsyncResult.Success(repositorySearchResultMapper.map(result))
         } catch (e: Exception) {
             isPaginationInProgress = false
             return AsyncResult.Failure(e)
