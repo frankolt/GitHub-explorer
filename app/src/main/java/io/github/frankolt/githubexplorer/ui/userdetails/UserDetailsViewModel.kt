@@ -6,14 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
-import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractorImpl
+import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserParameters
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetailsState
 import kotlinx.coroutines.launch
 
 class UserDetailsViewModel @ViewModelInject constructor(
-    private val userInteractor: UserInteractorImpl
+    private val userInteractor: UserInteractor
 ) : ViewModel() {
 
     private val _userDetailsState = MutableLiveData<UserDetailsState>()
@@ -28,7 +29,7 @@ class UserDetailsViewModel @ViewModelInject constructor(
             return@launch
         }
         _userDetailsState.value = UserDetailsState.Loading
-        val result = userInteractor.load(username)
+        val result = userInteractor.execute(UserParameters(username))
         if (result is AsyncResult.Success) {
             _userDetailsState.value = UserDetailsState.Loaded(result.value)
         } else {

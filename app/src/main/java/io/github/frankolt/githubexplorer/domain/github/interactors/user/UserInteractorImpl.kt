@@ -9,10 +9,10 @@ import javax.inject.Inject
 class UserInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val userMapper: UserMapper
-) {
+) : UserInteractor {
 
-    suspend fun load(username: String): AsyncResult<User> = try {
-        AsyncResult.Success(userMapper.map(gitHubService.getUser(username)))
+    override suspend fun execute(parameters: UserParameters): AsyncResult<User> = try {
+        AsyncResult.Success(userMapper.map(gitHubService.getUser(parameters.username)))
     } catch (e: Exception) {
         AsyncResult.Failure(e)
     }
