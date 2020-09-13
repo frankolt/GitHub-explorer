@@ -8,6 +8,8 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMa
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapperImpl
+import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapper
+import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapperImpl
 
@@ -23,4 +25,7 @@ interface ModelMapperModule {
 
     @Binds
     fun bindUserPlanMapper(mapper: UserPlanMapperImpl): UserPlanMapper
+
+    @Binds
+    fun bindUserMapper(mapper: UserMapperImpl): UserMapper
 }
