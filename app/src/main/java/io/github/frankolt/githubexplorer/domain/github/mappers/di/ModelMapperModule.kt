@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapperImpl
+import io.github.frankolt.githubexplorer.domain.github.mappers.repository.RepositoryMapper
+import io.github.frankolt.githubexplorer.domain.github.mappers.repository.RepositoryMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.repositorypermissions.RepositoryPermissionsMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.user.UserMapper
@@ -28,4 +30,7 @@ interface ModelMapperModule {
 
     @Binds
     fun bindUserMapper(mapper: UserMapperImpl): UserMapper
+
+    @Binds
+    fun bindRepositoryMapper(mapper: RepositoryMapperImpl): RepositoryMapper
 }
