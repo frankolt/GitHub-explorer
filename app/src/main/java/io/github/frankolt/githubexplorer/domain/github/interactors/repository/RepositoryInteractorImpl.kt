@@ -9,10 +9,12 @@ import javax.inject.Inject
 class RepositoryInteractorImpl @Inject constructor(
     private val gitHubService: GitHubService,
     private val repositoryMapper: RepositoryMapper
-) {
+) : RepositoryInteractor {
 
-    suspend fun load(owner: String, repo: String): AsyncResult<Repository> = try {
-        AsyncResult.Success(repositoryMapper.map(gitHubService.getRepository(owner, repo)))
+    override suspend fun execute(parameters: RepositoryParameters): AsyncResult<Repository> = try {
+        AsyncResult.Success(
+            repositoryMapper.map(gitHubService.getRepository(parameters.owner, parameters.repo))
+        )
     } catch (e: Exception) {
         AsyncResult.Failure(e)
     }

@@ -6,14 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
-import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractorImpl
+import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractor
+import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryParameters
 import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.events.RepositoryDetailsEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.state.RepositoryDetailsState
 import kotlinx.coroutines.launch
 
 class RepositoryDetailsViewModel @ViewModelInject constructor(
-    private val repositoryInteractor: RepositoryInteractorImpl
+    private val repositoryInteractor: RepositoryInteractor
 ) : ViewModel() {
 
     private val _repositoryDetailsState = MutableLiveData<RepositoryDetailsState>()
@@ -28,7 +29,7 @@ class RepositoryDetailsViewModel @ViewModelInject constructor(
             return@launch
         }
         _repositoryDetailsState.value = RepositoryDetailsState.Loading
-        val result = repositoryInteractor.load(owner, repo)
+        val result = repositoryInteractor.execute(RepositoryParameters(owner, repo))
         if (result is AsyncResult.Success) {
             _repositoryDetailsState.value = RepositoryDetailsState.Loaded(result.value)
         } else {
@@ -49,7 +50,7 @@ class RepositoryDetailsViewModel @ViewModelInject constructor(
     fun openUserDetails() {
         _repositoryDetailsState.value?.let { state ->
             if (state is RepositoryDetailsState.Loaded) {
-                state.repository.owner?.login?.let {
+                state.repository.owner.login.let {
                     events.value = RepositoryDetailsEvent.OpenUserDetails(it)
                 }
             }
