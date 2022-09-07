@@ -1,10 +1,10 @@
 package io.github.frankolt.githubexplorer.ui.userdetails
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserInteractor
 import io.github.frankolt.githubexplorer.domain.github.interactors.user.UserParameters
@@ -12,8 +12,10 @@ import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.events.UserDetailsEvent
 import io.github.frankolt.githubexplorer.ui.userdetails.state.UserDetailsState
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserDetailsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class UserDetailsViewModel @Inject constructor(
     private val userInteractor: UserInteractor
 ) : ViewModel() {
 

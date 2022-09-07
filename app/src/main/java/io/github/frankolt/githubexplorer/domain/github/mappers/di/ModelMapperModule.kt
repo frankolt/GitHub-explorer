@@ -3,7 +3,7 @@ package io.github.frankolt.githubexplorer.domain.github.mappers.di
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapper
 import io.github.frankolt.githubexplorer.domain.github.mappers.license.LicenseMapperImpl
 import io.github.frankolt.githubexplorer.domain.github.mappers.repository.RepositoryMapper
@@ -18,7 +18,7 @@ import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlan
 import io.github.frankolt.githubexplorer.domain.github.mappers.userplan.UserPlanMapperImpl
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 interface ModelMapperModule {
 
     @Binds

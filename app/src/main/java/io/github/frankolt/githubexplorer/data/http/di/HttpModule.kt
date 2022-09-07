@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import io.github.frankolt.githubexplorer.BuildConfig
 import io.github.frankolt.githubexplorer.data.http.github.GitHubRequestInterceptor
 import io.github.frankolt.githubexplorer.data.http.github.GitHubService
@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object HttpModule {
 
     @Provides

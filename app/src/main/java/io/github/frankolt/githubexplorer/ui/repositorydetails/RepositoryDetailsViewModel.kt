@@ -1,10 +1,10 @@
 package io.github.frankolt.githubexplorer.ui.repositorydetails
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryInteractor
 import io.github.frankolt.githubexplorer.domain.github.interactors.repository.RepositoryParameters
@@ -12,8 +12,10 @@ import io.github.frankolt.githubexplorer.ui.arch.SingleLiveEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.events.RepositoryDetailsEvent
 import io.github.frankolt.githubexplorer.ui.repositorydetails.state.RepositoryDetailsState
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RepositoryDetailsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class RepositoryDetailsViewModel @Inject constructor(
     private val repositoryInteractor: RepositoryInteractor
 ) : ViewModel() {
 

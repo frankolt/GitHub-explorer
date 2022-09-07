@@ -1,10 +1,10 @@
 package io.github.frankolt.githubexplorer.ui.repositorysearch
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.frankolt.githubexplorer.domain.github.interactors.AsyncResult
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.LastPageReachedException
 import io.github.frankolt.githubexplorer.domain.github.interactors.repositorysearch.RepositorySearchInteractor
@@ -16,8 +16,10 @@ import io.github.frankolt.githubexplorer.ui.repositorysearch.state.PaginationSta
 import io.github.frankolt.githubexplorer.ui.repositorysearch.state.QueryState
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class RepositorySearchViewModel @ViewModelInject constructor(
+@HiltViewModel
+class RepositorySearchViewModel @Inject constructor(
     private val repositorySearchInteractor: RepositorySearchInteractor
 ) : ViewModel() {
 
